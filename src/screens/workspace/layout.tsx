@@ -1,3 +1,5 @@
+import { PlusIcon } from 'lucide-react'
+import { Button, Input } from '@/shared/components/ui'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -22,31 +24,37 @@ export const WorkspaceLayout = ({
   return (
     <SidebarProvider>
       <WorkspaceSidebar />
-      <SidebarInset>
-        <div className=''></div>
-        <header className='flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12'>
-          <div className='flex items-center gap-2 px-4'>
-            <SidebarTrigger className='-ml-1' />
-            <Separator
-              orientation='vertical'
-              className='mr-2 data-[orientation=vertical]:h-4'
-            />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem className='hidden md:block'>
-                  <BreadcrumbLink href='#'>
-                    Building Your Application
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className='hidden md:block' />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
+      <SidebarInset className='container'>
+        <div className='space-y-4'>
+          <div className='flex items-center justify-between gap-2 py-4'>
+            <Input className='w-1/3' />
+            <Button>
+              <PlusIcon />
+            </Button>
           </div>
-        </header>
-        <div className='px-4'>{children}</div>
+          <header className='flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12'>
+            <div className='flex items-center gap-2 px-4'>
+              <SidebarTrigger className='-ml-1' />
+              <Separator
+                orientation='vertical'
+                className='mr-2 data-[orientation=vertical]:h-4'
+              />
+              <Breadcrumb>
+                <BreadcrumbList>
+                  <BreadcrumbItem className='hidden md:block'>
+                    <BreadcrumbLink href='#'>Home</BreadcrumbLink>
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator className='hidden md:block' />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+            </div>
+          </header>
+        </div>
+
+        {children}
       </SidebarInset>
     </SidebarProvider>
   )
