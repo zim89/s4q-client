@@ -13,7 +13,7 @@ import {
   workspaceProjects,
   workspaceTeams,
   workspaceUser,
-} from '../constants'
+} from '../lib/constants'
 import { NavMain } from './nav-main'
 import { NavProjects } from './nav-projects'
 import { NavUser } from './nav-user'

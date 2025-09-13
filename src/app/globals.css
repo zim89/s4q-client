@@ -120,3 +120,52 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Tiptap Editor Styles */
+.tiptap {
+  /* Basic List Styles */
+  ul:not([data-type='taskList']) {
+    @apply my-4 list-disc pl-6;
+  }
+
+  ul:not([data-type='taskList']) li {
+    @apply my-1;
+  }
+
+  ul:not([data-type='taskList']) li::marker {
+    @apply text-gray-600;
+  }
+
+  ol {
+    @apply my-4 list-decimal pl-6;
+  }
+
+  ol li {
+    @apply my-1;
+  }
+
+  /* Task List Styles */
+  ul[data-type='taskList'] {
+    @apply m-0 list-none p-0;
+  }
+
+  ul[data-type='taskList'] li {
+    @apply flex items-start;
+  }
+
+  ul[data-type='taskList'] li > label {
+    @apply mr-2 flex-none select-none;
+  }
+
+  ul[data-type='taskList'] li > div {
+    @apply flex-1;
+  }
+
+  ul[data-type='taskList'] input[type='checkbox'] {
+    @apply cursor-pointer;
+  }
+
+  ul[data-type='taskList'] ul[data-type='taskList'] {
+    @apply m-0;
+  }
+}

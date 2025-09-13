@@ -1,3 +1,6 @@
+/**
+ * User roles in the system
+ */
 export const userRoles = {
   admin: 'ADMIN',
   user: 'USER',
@@ -7,7 +10,9 @@ export const userRoles = {
 
 export type UserRole = (typeof userRoles)[keyof typeof userRoles]
 
-// Card constants
+/**
+ * Card difficulty levels
+ */
 export const cardDifficulties = {
   easy: 'EASY',
   medium: 'MEDIUM',
@@ -17,6 +22,9 @@ export const cardDifficulties = {
 export type CardDifficulty =
   (typeof cardDifficulties)[keyof typeof cardDifficulties]
 
+/**
+ * Parts of speech for language learning
+ */
 export const partsOfSpeech = {
   noun: 'NOUN',
   verb: 'VERB',
@@ -32,6 +40,9 @@ export const partsOfSpeech = {
 
 export type PartOfSpeech = (typeof partsOfSpeech)[keyof typeof partsOfSpeech]
 
+/**
+ * Content types for different materials
+ */
 export const contentTypes = {
   notice: 'NOTICE',
   language: 'LANGUAGE',
@@ -40,6 +51,9 @@ export const contentTypes = {
 
 export type ContentType = (typeof contentTypes)[keyof typeof contentTypes]
 
+/**
+ * Content status for publishing workflow
+ */
 export const contentStatuses = {
   draft: 'DRAFT',
   published: 'PUBLISHED',
@@ -49,6 +63,9 @@ export const contentStatuses = {
 export type ContentStatus =
   (typeof contentStatuses)[keyof typeof contentStatuses]
 
+/**
+ * Language proficiency levels (CEFR)
+ */
 export const languageLevels = {
   a1: 'A1',
   a2: 'A2',
@@ -60,6 +77,9 @@ export const languageLevels = {
 
 export type LanguageLevel = (typeof languageLevels)[keyof typeof languageLevels]
 
+/**
+ * Verb types for grammar classification
+ */
 export const verbTypes = {
   regular: 'REGULAR',
   irregular: 'IRREGULAR',
@@ -72,7 +92,9 @@ export const verbTypes = {
 
 export type VerbType = (typeof verbTypes)[keyof typeof verbTypes]
 
-// Card sort fields
+/**
+ * Sortable fields for card queries
+ */
 export const cardSortFields = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -85,10 +107,23 @@ export const cardSortFields = {
 
 export type CardSortField = (typeof cardSortFields)[keyof typeof cardSortFields]
 
-// Sort orders
+/**
+ * Sort order directions
+ */
 export const sortOrders = {
   asc: 'asc',
   desc: 'desc',
 } as const
 
 export type SortOrder = (typeof sortOrders)[keyof typeof sortOrders]
+
+/**
+ * Sortable fields for set queries
+ */
+export const setSortFields = {
+  createdAt: 'createdAt',
+  name: 'name',
+  level: 'level',
+} as const
+
+export type SetSortField = (typeof setSortFields)[keyof typeof setSortFields]

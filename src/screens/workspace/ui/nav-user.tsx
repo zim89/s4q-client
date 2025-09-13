@@ -28,7 +28,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/shared/components/ui/sidebar'
-import { workspaceUser } from '../constants'
+import { workspaceUser } from '../lib/constants'
 
 type Props = {
   user: typeof workspaceUser

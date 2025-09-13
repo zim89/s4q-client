@@ -16,7 +16,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from '@/shared/components/ui/sidebar'
-import { workspaceNavMain } from '../constants'
+import { workspaceNavMain } from '../lib/constants'
 
 type Props = {
   items: typeof workspaceNavMain

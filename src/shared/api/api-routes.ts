@@ -14,6 +14,17 @@ export const apiRoutes = {
     update: (id: string) => `${API_BASE}/cards/${id}`,
     delete: (id: string) => `${API_BASE}/cards/${id}`,
   },
+  set: {
+    create: `${API_BASE}/sets`,
+    findMany: `${API_BASE}/sets`,
+    findOne: (id: string) => `${API_BASE}/sets/${id}`,
+    update: (id: string) => `${API_BASE}/sets/${id}`,
+    delete: (id: string) => `${API_BASE}/sets/${id}`,
+    addCardToSet: (setId: string, cardId: string) =>
+      `${API_BASE}/sets/${setId}/cards/${cardId}`,
+    removeCardFromSet: (setId: string, cardId: string) =>
+      `${API_BASE}/sets/${setId}/cards/${cardId}`,
+  },
   workspace: {
     index: '/workspace',
   },

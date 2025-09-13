@@ -17,7 +17,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/shared/components/ui/sidebar'
-import { workspaceTeams } from '../constants'
+import { workspaceTeams } from '../lib/constants'
 
 type Props = {
   teams: typeof workspaceTeams
