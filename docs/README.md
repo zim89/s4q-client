@@ -1,85 +1,84 @@
-# 📚 Project Documentation
+# 📚 Документация проекта
 
-Welcome to the **Agent AI Market** project documentation!
+Добро пожаловать в документацию проекта **Agent AI Market**!
 
-## 🚀 Quick Start
+## 🚀 Быстрый старт
 
-To get started with the project, go to the
-**[Getting Started](./getting-started/README.md)** section.
+Чтобы начать работу с проектом, перейдите в раздел
+**[Начало работы](./getting-started/README.md)**.
 
-## 🗂️ Documentation Structure
+## 🗂️ Структура документации
 
-- **[🚀 Getting Started](./getting-started/)** - project overview and quick start
-- **[🏗️ Architecture](./architecture/)** - architectural decisions and principles
-- **[🎨 Frontend](./frontend/)** - user interface development
-- **[🔍 SEO](./seo/)** - search engine optimization
-- **[🔧 Development](./development/)** - development processes and environment
-  variables
-- **[📖 Reference](./reference/)** - technical references
+- **[🚀 Начало работы](./getting-started/)** - обзор проекта и быстрый старт
+- **[🏗️ Архитектура](./architecture/)** - архитектурные решения и принципы
+- **[🎨 Frontend](./frontend/)** - разработка пользовательского интерфейса
+- **[🔍 SEO](./seo/)** - поисковая оптимизация
+- **[🔧 Разработка](./development/)** - процессы разработки и переменные окружения
+- **[📖 Справочник](./reference/)** - технические справочники
 
-## 🛠️ Useful Scripts
+## 🛠️ Полезные скрипты
 
-### Sitemap Automation
+### Автоматизация карты сайта
 
 ```bash
-# Update sitemap
+# Обновить карту сайта
 npm run sitemap
 
-# Monitor status
+# Проверить статус
 npm run sitemap:status
 
-# Check canonical URL
+# Проверить канонический URL
 npm run sitemap:check
 ```
 
-**Run after:**
+**Запускать после:**
 
-- Adding new pages
-- Changing route structure
-- Before release for SEO check
-- Each deployment (automatically)
+- Добавления новых страниц
+- Изменения структуры маршрутов
+- Перед релизом для SEO проверки
+- Каждого деплоя (автоматически)
 
-### Canonical URL Check
+### Проверка канонических URL
 
 ```bash
-# Check canonical URLs
+# Проверить канонические URL
 npm run sitemap:check
 
-# Check specific page
+# Проверить конкретную страницу
 npm run sitemap:check -- --page=/specific-page
 ```
 
-**Run after:**
+**Запускать после:**
 
-- Adding new pages
-- Changing route structure
-- Before release for SEO check
+- Добавления новых страниц
+- Изменения структуры маршрутов
+- Перед релизом для SEO проверки
 
-## 🔐 Verification Files
+## 🔐 Файлы верификации
 
-When connecting the site to search engines, verification files may be required:
+При подключении сайта к поисковым системам могут потребоваться файлы верификации:
 
-- **Yandex.Webmaster**: `public/yandex_*.html`
+- **Яндекс.Вебмастер**: `public/yandex_*.html`
 - **Google Search Console**: `public/google_*.html`
 - **Bing Webmaster**: `public/bing_*.html`
 
-**Important:** Verification files are not indexed and can be removed after
-confirming domain ownership.
+**Важно:** Файлы верификации не индексируются и могут быть удалены после
+подтверждения владения доменом.
 
-## 🎯 Who This Documentation Is For
+## 🎯 Для кого эта документация
 
-- **Developers** - architecture, API, development processes
-- **SEO Specialists** - search engine optimization
-- **Designers** - components and styling
-- **Managers** - project overview and processes
+- **Разработчики** - архитектура, API, процессы разработки
+- **SEO специалисты** - поисковая оптимизация
+- **Дизайнеры** - компоненты и стилизация
+- **Менеджеры** - обзор проекта и процессов
 
-## 📞 Support
+## 📞 Поддержка
 
-If you have questions or suggestions for improving the documentation:
+Если у вас есть вопросы или предложения по улучшению документации:
 
-- Create an issue in the repository
-- Contact the development team
+- Создайте issue в репозитории
+- Обратитесь к команде разработки
 
 ---
 
-**Last updated**: August 2025
+**Последнее обновление**: Август 2025

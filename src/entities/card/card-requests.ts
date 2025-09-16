@@ -3,7 +3,9 @@ import type { PaginatedResponse } from '@/shared/types'
 import type {
   Card,
   CardParams,
+  CardSearchParams,
   CreateCardDto,
+  SearchCard,
   UpdateCardDto,
 } from './card-types'
 
@@ -66,6 +68,24 @@ class CardRequests {
    */
   async delete(id: string): Promise<void> {
     await axiosClient.delete(apiRoutes.card.delete(id))
+  }
+
+  /**
+   * Search cards by term for autocomplete
+   */
+  async searchByTerm(params: CardSearchParams): Promise<SearchCard[]> {
+    const searchParams = new URLSearchParams()
+
+    searchParams.append('term', params.term)
+    if (params.limit !== undefined) {
+      searchParams.append('limit', String(params.limit))
+    }
+
+    const response = await axiosClient.get<SearchCard[]>(
+      `${apiRoutes.card.search}?${searchParams.toString()}`,
+    )
+
+    return response.data
   }
 }
 

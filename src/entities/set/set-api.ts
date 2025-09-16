@@ -1,7 +1,6 @@
-import type { PaginatedResponse } from '@/shared/types'
 import { setKeys } from './set-keys'
 import { setRequests } from './set-requests'
-import type { Set, SetParams } from './set-types'
+import type { SetParams } from './set-types'
 
 /**
  * API class for set
@@ -9,8 +8,7 @@ import type { Set, SetParams } from './set-types'
  */
 class SetApi {
   findById = setRequests.findById
-  findMany: (params?: SetParams) => Promise<PaginatedResponse<Set>> =
-    setRequests.findMany
+  findMany = setRequests.findMany
   create = setRequests.create
   update = setRequests.update
   delete = setRequests.delete

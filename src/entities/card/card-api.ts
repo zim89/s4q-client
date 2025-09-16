@@ -1,6 +1,6 @@
 import { cardKeys } from './card-keys'
 import { cardRequests } from './card-requests'
-import type { CardParams } from './card-types'
+import type { CardParams, CardSearchParams } from './card-types'
 
 /**
  * API class for cards
@@ -12,6 +12,7 @@ class CardApi {
   create = cardRequests.create
   update = cardRequests.update
   delete = cardRequests.delete
+  searchByTerm = cardRequests.searchByTerm
 
   /**
    * Query options for finding card by ID
@@ -31,6 +32,17 @@ class CardApi {
     return {
       queryKey: cardKeys.list(params || {}),
       queryFn: () => this.findMany(params),
+    }
+  }
+
+  /**
+   * Query options for searching cards by term
+   */
+  searchByTermOptions(params: CardSearchParams) {
+    return {
+      queryKey: cardKeys.search(params),
+      queryFn: () => this.searchByTerm(params),
+      enabled: !!params.term && params.term.length >= 2,
     }
   }
 }

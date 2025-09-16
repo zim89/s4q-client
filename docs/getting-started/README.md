@@ -1,98 +1,97 @@
-# 📚 Project Documentation
+# 📚 Документация проекта
 
-Welcome to the Agent AI Market project documentation! Here you will find all
-necessary information for development, deployment and project support.
+Добро пожаловать в документацию проекта Agent AI Market! Здесь вы найдете всю
+необходимую информацию для разработки, развертывания и поддержки проекта.
 
-## 🗂️ Documentation Structure
+## 🗂️ Структура документации
 
-### 🚀 [Getting Started](./README.md)
+### 🚀 [Начало работы](./README.md)
 
-- **README.md** - main documentation page (you are here)
-- **[project-overview.md](./project-overview.md)** - project and technology overview
+- **README.md** - главная страница документации (вы здесь)
+- **[project-overview.md](./project-overview.md)** - обзор проекта и технологий
 
-### 🏗️ [Architecture](../architecture/)
+### 🏗️ [Архитектура](../architecture/)
 
 - **[entity-structure-guide.md](../architecture/entity-structure-guide.md)** -
-  entity creation guide
-- **[auth-strategy.md](../architecture/auth-strategy.md)** - authentication
-  strategy
+  руководство по созданию сущностей
+- **[auth-strategy.md](../architecture/auth-strategy.md)** - стратегия аутентификации
 - **[server-side-authentication.md](../architecture/server-side-authentication.md)** -
-  server-side authentication
-- **[project-structure.md](../architecture/project-structure.md)** - project
-  structure and SSR implementation
+  серверная аутентификация
+- **[project-structure.md](../architecture/project-structure.md)** - структура проекта
+  и реализация SSR
 
 ### 🎨 [Frontend](../frontend/)
 
 - **[features-hooks-guide.md](../architecture/features-hooks-guide.md)** -
-  guide for creating hooks with TanStack Query
-- **[compare-page.md](../frontend/compare-page.md)** - agent comparison page
-- **[compare-page-discord.md](../frontend/compare-page-discord.md)** - Discord
-  comparison page
+  руководство по созданию хуков с TanStack Query
+- **[compare-page.md](../frontend/compare-page.md)** - страница сравнения агентов
+- **[compare-page-discord.md](../frontend/compare-page-discord.md)** - страница
+  сравнения Discord
 - **[bfcache-optimization-guide.md](../frontend/bfcache-optimization-guide.md)** -
-  bfcache optimization guide
+  руководство по оптимизации bfcache
 - **[multiple-prefetch-performance-guide.md](../frontend/multiple-prefetch-performance-guide.md)** -
-  multiple prefetch performance guide
+  руководство по производительности множественного prefetch
 
 ### 🔍 [SEO](../seo/)
 
-- **[seo-overview.md](../seo/seo-overview.md)** - SEO strategy overview
-- **[page-seo-checklist.md](../seo/page-seo-checklist.md)** - SEO checklist for
-  pages
+- **[seo-overview.md](../seo/seo-overview.md)** - обзор SEO стратегии
+- **[page-seo-checklist.md](../seo/page-seo-checklist.md)** - SEO чеклист для
+  страниц
 
-### 🔧 [Development](../development/)
+### 🔧 [Разработка](../development/)
 
 - **[git-workflow.md](../development/git-workflow.md)** - Git workflow
-- **[git-cheatsheet.md](../development/git-cheatsheet.md)** - Git cheatsheet
+- **[git-cheatsheet.md](../development/git-cheatsheet.md)** - шпаргалка по Git
 
-### 📖 [Reference](../reference/)
+### 📖 [Справочник](../reference/)
 
-- **[api-reference.md](../reference/api-reference.md)** - API reference
+- **[api-reference.md](../reference/api-reference.md)** - справочник по API
 
-## 🎯 Quick Start
+## 🎯 Быстрый старт
 
-### For New Developers:
+### Для новых разработчиков:
 
-1. Read **[project-overview.md](./project-overview.md)** to understand the
-   architecture
-2. Study
+1. Прочитайте **[project-overview.md](./project-overview.md)** для понимания
+   архитектуры
+2. Изучите
    **[entity-structure-guide.md](../architecture/entity-structure-guide.md)**
-   for working with data
-3. Familiarize yourself with **[git-workflow.md](../development/git-workflow.md)** for
-   development process
+   для работы с данными
+3. Ознакомьтесь с **[git-workflow.md](../development/git-workflow.md)** для
+   процесса разработки
 
-### For SEO Work:
+### Для SEO работы:
 
-1. Study **[seo-overview.md](../seo/seo-overview.md)**
-2. Follow **[page-seo-checklist.md](../seo/page-seo-checklist.md)** when
-   creating new pages
+1. Изучите **[seo-overview.md](../seo/seo-overview.md)**
+2. Следуйте **[page-seo-checklist.md](../seo/page-seo-checklist.md)** при
+   создании новых страниц
 
-### For API Work:
+### Для работы с API:
 
-1. Familiarize yourself with
+1. Ознакомьтесь с
    **[entity-structure-guide.md](../architecture/entity-structure-guide.md)**
-2. Study **[api-reference.md](../reference/api-reference.md)**
+2. Изучите **[api-reference.md](../reference/api-reference.md)**
 
-## 🔄 Documentation Updates
+## 🔄 Обновления документации
 
-Documentation is updated along with the code. When making changes to architecture
-or development processes, please update the relevant documentation sections.
+Документация обновляется вместе с кодом. При внесении изменений в архитектуру
+или процессы разработки, пожалуйста, обновляйте соответствующие разделы документации.
 
-## 🤝 Contributing to Documentation
+## 🤝 Вклад в документацию
 
-If you found an error or want to improve the documentation:
+Если вы нашли ошибку или хотите улучшить документацию:
 
-1. Create an issue describing the problem
-2. Propose changes through Pull Request
-3. Make sure changes follow the style and structure of existing
-   documentation
+1. Создайте issue с описанием проблемы
+2. Предложите изменения через Pull Request
+3. Убедитесь, что изменения соответствуют стилю и структуре существующей
+   документации
 
-## 📞 Support
+## 📞 Поддержка
 
-If you have questions about documentation or the project:
+Если у вас есть вопросы по документации или проекту:
 
-- Create an issue in the repository
-- Contact the development team
+- Создайте issue в репозитории
+- Обратитесь к команде разработки
 
 ---
 
-**Last updated**: August 2025
+**Последнее обновление**: Август 2025

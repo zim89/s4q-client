@@ -13,6 +13,7 @@ export const apiRoutes = {
     findOne: (id: string) => `${API_BASE}/cards/${id}`,
     update: (id: string) => `${API_BASE}/cards/${id}`,
     delete: (id: string) => `${API_BASE}/cards/${id}`,
+    search: `${API_BASE}/cards/search`,
   },
   set: {
     create: `${API_BASE}/sets`,
@@ -24,6 +25,9 @@ export const apiRoutes = {
       `${API_BASE}/sets/${setId}/cards/${cardId}`,
     removeCardFromSet: (setId: string, cardId: string) =>
       `${API_BASE}/sets/${setId}/cards/${cardId}`,
+  },
+  language: {
+    findMany: `${API_BASE}/languages`,
   },
   workspace: {
     index: '/workspace',

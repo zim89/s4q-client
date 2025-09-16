@@ -28,6 +28,17 @@
 - API классы с query options
 - Шаблоны для разных типов API
 
+### [Feature Structure Guide](./feature-structure-guide.md)
+
+Руководство по структуре функций в проекте.
+
+**Содержит:**
+
+- Структура папок функций
+- Назначение каждой папки
+- Правила организации кода
+- Соглашения именования
+
 ### [Features Hooks Guide](./features-hooks-guide.md)
 
 Руководство по кастомным хукам в Features с TanStack Query.

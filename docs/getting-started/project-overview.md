@@ -1,150 +1,150 @@
-# 🚀 Project Overview
+# 🚀 Обзор проекта
 
-## 📋 Description
+## 📋 Описание
 
-**Agent AI Market** is an AI agents marketplace built on modern technology stack
-with focus on performance, SEO and user experience.
+**Agent AI Market** - это маркетплейс AI агентов, построенный на современном технологическом стеке
+с фокусом на производительность, SEO и пользовательский опыт.
 
-## 🛠️ Technology Stack
+## 🛠️ Технологический стек
 
 ### Frontend
 
-- **Next.js 15** - React framework with App Router
-- **TypeScript** - typed JavaScript
-- **Tailwind CSS 4+** - utility CSS framework
-- **TanStack Query** - state management and caching
-- **Zustand** - lightweight state management
+- **Next.js 15** - React фреймворк с App Router
+- **TypeScript** - типизированный JavaScript
+- **Tailwind CSS 4+** - утилитарный CSS фреймворк
+- **TanStack Query** - управление состоянием и кэширование
+- **Zustand** - легковесное управление состоянием
 
-### Backend Integration
+### Интеграция с Backend
 
-- **REST API** - for server interaction
-- **Axios** - HTTP client
-- **JWT** - authentication
+- **REST API** - для взаимодействия с сервером
+- **Axios** - HTTP клиент
+- **JWT** - аутентификация
 
-### SEO and Performance
+### SEO и производительность
 
-- **Server-Side Rendering (SSR)** - for SEO
-- **Static Generation** - for static pages
-- **JSON-LD** - structured data
-- **Open Graph** - social networks
+- **Server-Side Rendering (SSR)** - для SEO
+- **Static Generation** - для статических страниц
+- **JSON-LD** - структурированные данные
+- **Open Graph** - социальные сети
 
-### Development Tools
+### Инструменты разработки
 
-- **ESLint** - code linting
-- **Prettier** - code formatting
-- **TypeScript** - type checking
-- **Git** - version control
+- **ESLint** - линтинг кода
+- **Prettier** - форматирование кода
+- **TypeScript** - проверка типов
+- **Git** - контроль версий
 
-## 🏗️ Architecture
+## 🏗️ Архитектура
 
-The project follows **Feature-Sliced Design (FSD)** methodology:
+Проект следует методологии **Feature-Sliced Design (FSD)**:
 
-- **App Layer** - Next.js routing
-- **Pages Layer** - page components
-- **Widgets Layer** - complex UI blocks
-- **Features Layer** - business features
-- **Entities Layer** - business entities
-- **Shared Layer** - shared resources
+- **App Layer** - Next.js роутинг
+- **Screens Layer** - компоненты страниц
+- **Widgets Layer** - сложные UI блоки
+- **Features Layer** - бизнес-функции
+- **Entities Layer** - бизнес-сущности
+- **Shared Layer** - общие ресурсы
 
-## 🎯 Key Features
+## 🎯 Ключевые функции
 
-- **AI Agent Marketplace** - browse and compare AI agents
-- **User Authentication** - secure login and registration
-- **Search and Filtering** - find agents by criteria
-- **Responsive Design** - works on all devices
-- **SEO Optimized** - search engine friendly
-- **Performance Focused** - fast loading times
+- **Маркетплейс AI агентов** - просмотр и сравнение AI агентов
+- **Аутентификация пользователей** - безопасный вход и регистрация
+- **Поиск и фильтрация** - поиск агентов по критериям
+- **Адаптивный дизайн** - работает на всех устройствах
+- **SEO оптимизация** - дружелюбность к поисковым системам
+- **Фокус на производительности** - быстрые времена загрузки
 
-## 📱 Pages Structure
+## 📱 Структура страниц
 
-- **Home Page** - main landing page
-- **Agent List** - browse all agents
-- **Agent Detail** - individual agent page
-- **Compare Page** - compare multiple agents
-- **User Profile** - user account management
-- **Authentication** - login and registration
+- **Главная страница** - основная лендинговая страница
+- **Список агентов** - просмотр всех агентов
+- **Детали агента** - страница отдельного агента
+- **Страница сравнения** - сравнение нескольких агентов
+- **Профиль пользователя** - управление аккаунтом пользователя
+- **Аутентификация** - вход и регистрация
 
-## 🔧 Development Setup
+## 🔧 Настройка разработки
 
-1. **Clone Repository**
+1. **Клонирование репозитория**
 
    ```bash
    git clone <repository-url>
    cd agent-ai-market
    ```
 
-2. **Install Dependencies**
+2. **Установка зависимостей**
 
    ```bash
    npm install
    ```
 
-3. **Environment Setup**
+3. **Настройка окружения**
 
    ```bash
    cp .env.example .env.local
-   # Configure environment variables
+   # Настройте переменные окружения
    ```
 
-4. **Start Development Server**
+4. **Запуск сервера разработки**
    ```bash
    npm run dev
    ```
 
-## 📚 Documentation
+## 📚 Документация
 
-- **[Architecture Guide](../architecture/)** - architectural decisions
-- **[Entity Structure](../architecture/entity-structure-guide.md)** - data layer
-- **[Features Guide](../architecture/features-hooks-guide.md)** - business logic
-- **[Code Standards](../code-standards.md)** - coding conventions
+- **[Руководство по архитектуре](../architecture/)** - архитектурные решения
+- **[Структура сущностей](../architecture/entity-structure-guide.md)** - слой данных
+- **[Руководство по функциям](../architecture/features-hooks-guide.md)** - бизнес-логика
+- **[Стандарты кода](../code-standards.md)** - соглашения по кодированию
 
-## 🚀 Deployment
+## 🚀 Развертывание
 
-The project is deployed on **Vercel** with automatic deployments from main branch.
+Проект развертывается на **Vercel** с автоматическими деплоями из основной ветки.
 
-### Environment Variables
+### Переменные окружения
 
-- `NEXT_PUBLIC_API_URL` - API base URL
-- `NEXT_PUBLIC_APP_URL` - application URL
-- `NEXTAUTH_SECRET` - authentication secret
-- `NEXTAUTH_URL` - authentication URL
+- `NEXT_PUBLIC_API_URL` - базовый URL API
+- `NEXT_PUBLIC_APP_URL` - URL приложения
+- `NEXTAUTH_SECRET` - секрет аутентификации
+- `NEXTAUTH_URL` - URL аутентификации
 
-## 📊 Performance
+## 📊 Производительность
 
-- **Lighthouse Score**: 95+ across all metrics
-- **Core Web Vitals**: Optimized for Google ranking
-- **Bundle Size**: Optimized with code splitting
-- **Caching**: Efficient data caching with TanStack Query
+- **Lighthouse Score**: 95+ по всем метрикам
+- **Core Web Vitals**: Оптимизировано для рейтинга Google
+- **Размер бандла**: Оптимизирован с разделением кода
+- **Кэширование**: Эффективное кэширование данных с TanStack Query
 
-## 🔒 Security
+## 🔒 Безопасность
 
-- **JWT Authentication** - secure token-based auth
-- **CSRF Protection** - cross-site request forgery protection
-- **XSS Prevention** - cross-site scripting prevention
-- **HTTPS Only** - secure connections only
+- **JWT аутентификация** - безопасная токен-аутентификация
+- **CSRF защита** - защита от межсайтовых подделок запросов
+- **XSS предотвращение** - предотвращение межсайтового скриптинга
+- **Только HTTPS** - только безопасные соединения
 
 ## 📈 SEO
 
-- **Server-Side Rendering** - for search engine indexing
-- **Structured Data** - JSON-LD for rich snippets
-- **Meta Tags** - optimized for social sharing
-- **Sitemap** - automatic sitemap generation
-- **Robots.txt** - search engine directives
+- **Server-Side Rendering** - для индексации поисковыми системами
+- **Структурированные данные** - JSON-LD для богатых сниппетов
+- **Мета-теги** - оптимизированы для социального шаринга
+- **Карта сайта** - автоматическая генерация карты сайта
+- **Robots.txt** - директивы для поисковых систем
 
-## 🤝 Contributing
+## 🤝 Вклад в проект
 
-1. **Fork Repository**
-2. **Create Feature Branch**
-3. **Make Changes**
-4. **Write Tests**
-5. **Submit Pull Request**
+1. **Форк репозитория**
+2. **Создание ветки функции**
+3. **Внесение изменений**
+4. **Написание тестов**
+5. **Отправка Pull Request**
 
-## 📞 Support
+## 📞 Поддержка
 
-- **Issues**: Create GitHub issue
-- **Discussions**: Use GitHub discussions
-- **Email**: Contact development team
+- **Issues**: Создайте GitHub issue
+- **Discussions**: Используйте GitHub discussions
+- **Email**: Обратитесь к команде разработки
 
 ---
 
-**Last updated**: August 2025
+**Последнее обновление**: Август 2025

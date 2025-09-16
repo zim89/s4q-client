@@ -35,9 +35,11 @@ export interface Card {
   updatedAt: Date
 
   // Core fields
-  term: string
   slug: string
+  term: string
+  translate: string | null
   definition: string | null
+  example: string | null
   partOfSpeech: PartOfSpeech | null
   transcription: string | null
 
@@ -78,7 +80,9 @@ export interface Card {
 export interface CreateCardDto {
   // Core fields
   term: string
+  translate?: string
   definition?: string
+  example?: string
   partOfSpeech?: PartOfSpeech
   transcription?: string
 
@@ -109,7 +113,9 @@ export interface CreateCardDto {
 export interface UpdateCardDto {
   // Core fields
   term?: string
+  translate?: string
   definition?: string
+  example?: string
   partOfSpeech?: PartOfSpeech
   transcription?: string
 
@@ -134,4 +140,33 @@ export interface UpdateCardDto {
   // Source fields
   sourceProvider?: string
   sourceId?: string
+}
+
+/** Search result card (partial card data for autocomplete) */
+export interface SearchCard {
+  id: string
+  term: string
+  translate: string | null
+  definition: string | null
+  example: string | null
+  transcription: string | null
+  slug: string
+  partOfSpeech: PartOfSpeech | null
+  difficulty: CardDifficulty | null
+  level: LanguageLevel | null
+  imageUrl: string | null
+  audioUrl: string | null
+  createdAt: Date
+  updatedAt: Date
+  language: {
+    id: string
+    name: string
+    code: string
+  } | null
+}
+
+/** Search parameters for card search */
+export interface CardSearchParams {
+  term: string
+  limit?: number
 }

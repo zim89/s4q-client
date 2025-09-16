@@ -292,17 +292,17 @@ import {
 const MyComponent = () => {
   const loginMutation = useLogin({
     onSuccess: () => router.push('/dashboard'),
-    onError: error => console.error('Login failed:', error),
+    onError: error => console.error('Ошибка входа:', error),
   })
 
   const registerMutation = useRegister({
     onSuccess: () => toast.success('Регистрация успешна!'),
-    onError: error => console.error('Registration failed:', error),
+    onError: error => console.error('Ошибка регистрации:', error),
   })
 
   const logoutMutation = useLogout({
     onSuccess: () => router.push('/'),
-    onError: error => console.error('Logout failed:', error),
+    onError: error => console.error('Ошибка выхода:', error),
   })
 
   const { isAuthenticated } = useAuthStatus()

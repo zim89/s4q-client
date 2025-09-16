@@ -1,8 +1,8 @@
-# Entity Structure Guide
+# Руководство по структуре сущностей
 
-## 📋 Entity Structure
+## 📋 Структура сущности
 
-Each entity should have the following structure:
+Каждая сущность должна иметь следующую структуру:
 
 ```
 src/entities/{entity-name}/
@@ -14,59 +14,59 @@ src/entities/{entity-name}/
 └── README.md
 ```
 
-## 📁 Files and Their Purpose
+## 📁 Файлы и их назначение
 
 ### 1. `{entity-name}-types.ts`
 
-**Purpose:** All types and interfaces for the entity
+**Назначение:** Все типы и интерфейсы для сущности
 
-**Structure:**
+**Структура:**
 
 ```typescript
 import type { PaginatedResponse } from '@/shared/types'
 
 // ==============================
-// REQUEST PARAMETERS
+// ПАРАМЕТРЫ ЗАПРОСОВ
 // ==============================
 
-/** Parameters for {entity-name} requests */
+/** Параметры для запросов {entity-name} */
 export interface {EntityName}Params {
   page?: number
   limit?: number
-  // other parameters
+  // другие параметры
 }
 
 // ==============================
-// MAIN TYPES
+// ОСНОВНЫЕ ТИПЫ
 // ==============================
 
-/** Main {entity-name} entity */
+/** Основная сущность {entity-name} */
 export interface {EntityName} {
   id: string
   createdAt: Date
   updatedAt: Date
 
-  // Core fields
+  // Основные поля
   name: string
   description?: string
 
-  // Additional fields
+  // Дополнительные поля
   status: string
   userId: string
 }
 
 // ==============================
-// ADDITIONAL TYPES
+// ДОПОЛНИТЕЛЬНЫЕ ТИПЫ
 // ==============================
 
-/** Creating {entity-name} */
+/** Создание {entity-name} */
 export interface Create{EntityName}Dto {
   name: string
   description?: string
   status?: string
 }
 
-/** Updating {entity-name} */
+/** Обновление {entity-name} */
 export interface Update{EntityName}Dto {
   name?: string
   description?: string
@@ -74,18 +74,18 @@ export interface Update{EntityName}Dto {
 }
 ```
 
-**Rules:**
+**Правила:**
 
-- Group interfaces by purpose with explicit separators (`// ==============================`)
-- Short comments for each interface
-- If interface has many properties, group them with empty lines
-- Use shared `PaginatedResponse<T>` for paginated responses
+- Группируйте интерфейсы по назначению с явными разделителями (`// ==============================`)
+- Краткие комментарии для каждого интерфейса
+- Если интерфейс имеет много свойств, группируйте их пустыми строками
+- Используйте общий `PaginatedResponse<T>` для пагинированных ответов
 
 ### 2. `{entity-name}-keys.ts`
 
-**Purpose:** Query keys for TanStack Query
+**Назначение:** Query keys для TanStack Query
 
-**Structure:**
+**Структура:**
 
 ```typescript
 import type { {EntityName}Params } from './{entity-name}-types'
@@ -102,18 +102,18 @@ export const {entityName}Keys = {
 } as const
 ```
 
-**Rules:**
+**Правила:**
 
-- Group keys by purpose with empty lines
-- No comments in the file
-- Use camelCase for key names
-- First element is always `root`
+- Группируйте ключи по назначению пустыми строками
+- Никаких комментариев в файле
+- Используйте camelCase для имен ключей
+- Первый элемент всегда `root`
 
 ### 3. `{entity-name}-requests.ts`
 
-**Purpose:** Internal HTTP requests class (not exported from module)
+**Назначение:** Внутренний класс HTTP запросов (не экспортируется из модуля)
 
-**Structure:**
+**Структура:**
 
 ```typescript
 import { apiRoutes, axiosClient } from '@/shared/api'
@@ -126,12 +126,12 @@ import type {
 } from './{entity-name}-types'
 
 /**
- * {EntityName} requests class
- * Contains all HTTP methods for {entity-name} operations
+ * Класс запросов {EntityName}
+ * Содержит все HTTP методы для операций с {entity-name}
  */
 class {EntityName}Requests {
   /**
-   * Find {entity-name} by ID
+   * Найти {entity-name} по ID
    */
   async findById(id: string): Promise<{EntityName}> {
     const response = await axiosClient.get<{EntityName}>(apiRoutes.{entityName}.findOne(id))
@@ -139,7 +139,7 @@ class {EntityName}Requests {
   }
 
   /**
-   * Find many {entity-name}s with pagination and filtering
+   * Найти много {entity-name}s с пагинацией и фильтрацией
    */
   async findMany(params?: {EntityName}Params): Promise<PaginatedResponse<{EntityName}>> {
     const searchParams = new URLSearchParams()
@@ -160,7 +160,7 @@ class {EntityName}Requests {
   }
 
   /**
-   * Create new {entity-name}
+   * Создать новый {entity-name}
    */
   async create(data: Create{EntityName}Dto): Promise<{EntityName}> {
     const response = await axiosClient.post<{EntityName}>(apiRoutes.{entityName}.create, data)
@@ -168,7 +168,7 @@ class {EntityName}Requests {
   }
 
   /**
-   * Update {entity-name}
+   * Обновить {entity-name}
    */
   async update(id: string, data: Update{EntityName}Dto): Promise<{EntityName}> {
     const response = await axiosClient.patch<{EntityName}>(
@@ -179,7 +179,7 @@ class {EntityName}Requests {
   }
 
   /**
-   * Delete {entity-name}
+   * Удалить {entity-name}
    */
   async delete(id: string): Promise<void> {
     await axiosClient.delete(apiRoutes.{entityName}.delete(id))
@@ -189,18 +189,18 @@ class {EntityName}Requests {
 export const {entityName}Requests = new {EntityName}Requests()
 ```
 
-**Rules:**
+**Правила:**
 
-- Short JSDoc without examples
-- Short comment for each function
-- Not exported from module index
-- Used only internally
+- Краткий JSDoc без примеров
+- Краткий комментарий для каждой функции
+- Не экспортируется из индекса модуля
+- Используется только внутренне
 
 ### 4. `{entity-name}-api.ts`
 
-**Purpose:** Public API class with HTTP methods and query options
+**Назначение:** Публичный API класс с HTTP методами и query options
 
-**Structure:**
+**Структура:**
 
 ```typescript
 import { {entityName}Keys } from './{entity-name}-keys'
@@ -209,8 +209,8 @@ import type { PaginatedResponse } from '@/shared/types'
 import type { {EntityName}, {EntityName}Params } from './{entity-name}-types'
 
 /**
- * API class for {entity-name}
- * Contains HTTP methods and query options
+ * API класс для {entity-name}
+ * Содержит HTTP методы и query options
  */
 class {EntityName}Api {
   findById = {entityName}Requests.findById
@@ -221,7 +221,7 @@ class {EntityName}Api {
   delete = {entityName}Requests.delete
 
   /**
-   * Query options for finding {entity-name} by ID
+   * Query options для поиска {entity-name} по ID
    */
   findByIdOptions(id: string) {
     return {
@@ -232,7 +232,7 @@ class {EntityName}Api {
   }
 
   /**
-   * Query options for finding many {entity-name}s
+   * Query options для поиска многих {entity-name}s
    */
   findManyOptions(params?: {EntityName}Params) {
     return {
@@ -245,19 +245,19 @@ class {EntityName}Api {
 export const {entityName}Api = new {EntityName}Api()
 ```
 
-**Rules:**
+**Правила:**
 
-- Short JSDoc without examples
-- Short comment for each function
-- Only query options (no mutation options)
-- Naming: `{request}Options`
-- Delegates HTTP methods to requests class
+- Краткий JSDoc без примеров
+- Краткий комментарий для каждой функции
+- Только query options (без mutation options)
+- Именование: `{request}Options`
+- Делегирует HTTP методы к классу requests
 
 ### 5. `index.ts`
 
-**Purpose:** Public API of the entity
+**Назначение:** Публичный API сущности
 
-**Structure:**
+**Структура:**
 
 ```typescript
 export * from './{entity-name}-types'
@@ -265,59 +265,59 @@ export * from './{entity-name}-keys'
 export * from './{entity-name}-api'
 ```
 
-**Rules:**
+**Правила:**
 
-- No comments in the file
-- Only export public API
-- Do not export `{entity-name}-requests.ts`
+- Никаких комментариев в файле
+- Только экспорт публичного API
+- Не экспортировать `{entity-name}-requests.ts`
 
 ### 6. `README.md`
 
-**Purpose:** Documentation for the entity
+**Назначение:** Документация для сущности
 
-**Structure:**
+**Структура:**
 
 ````markdown
-# {Entity-Name} Entity
+# Сущность {Entity-Name}
 
-## Description
+## Описание
 
-Entity for working with {entity-name}s in the application. Provides API methods, query keys, and request functions for managing {entity-name}s with pagination, filtering, and CRUD operations.
+Сущность для работы с {entity-name}s в приложении. Предоставляет API методы, query keys и функции запросов для управления {entity-name}s с пагинацией, фильтрацией и CRUD операциями.
 
-## API Methods
+## API методы
 
-### HTTP Methods ({entityName}Api)
+### HTTP методы ({entityName}Api)
 
-- `{entityName}Api.findById(id: string)` - Find {entity-name} by ID
-- `{entityName}Api.findMany(params?: {EntityName}Params)` - Find many {entity-name}s with pagination and filtering
-- `{entityName}Api.create(data: Create{EntityName}Dto)` - Create new {entity-name}
-- `{entityName}Api.update(id: string, data: Update{EntityName}Dto)` - Update {entity-name}
-- `{entityName}Api.delete(id: string)` - Delete {entity-name}
+- `{entityName}Api.findById(id: string)` - Найти {entity-name} по ID
+- `{entityName}Api.findMany(params?: {EntityName}Params)` - Найти много {entity-name}s с пагинацией и фильтрацией
+- `{entityName}Api.create(data: Create{EntityName}Dto)` - Создать новый {entity-name}
+- `{entityName}Api.update(id: string, data: Update{EntityName}Dto)` - Обновить {entity-name}
+- `{entityName}Api.delete(id: string)` - Удалить {entity-name}
 
 ### Query Options ({entityName}Api)
 
-- `{entityName}Api.findByIdOptions(id: string)` - Query options for finding by ID
-- `{entityName}Api.findManyOptions(params?: {EntityName}Params)` - Query options for finding many
+- `{entityName}Api.findByIdOptions(id: string)` - Query options для поиска по ID
+- `{entityName}Api.findManyOptions(params?: {EntityName}Params)` - Query options для поиска многих
 
-**Note:** Mutation options are handled in custom hooks, not in the API class.
+**Примечание:** Mutation options обрабатываются в кастомных хуках, а не в API классе.
 
-## Usage Examples
+## Примеры использования
 
-### In Components
+### В компонентах
 
 ```typescript
 import { useQuery } from '@tanstack/react-query'
 import { {entityName}Api } from '@/entities/{entity-name}'
 
-// Using query options
+// Использование query options
 const { data: {entityName}, isLoading } = useQuery({entityName}Api.findByIdOptions(id))
 
-// Direct HTTP call
+// Прямой HTTP вызов
 const {entityName} = await {entityName}Api.findById(id)
 ```
 ````
 
-### In Hooks
+### В хуках
 
 ```typescript
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -325,7 +325,7 @@ import { {entityName}Api, {entityName}Keys } from '@/entities/{entity-name}'
 
 const queryClient = useQueryClient()
 
-// Using {entityName}Api directly in custom hooks
+// Использование {entityName}Api напрямую в кастомных хуках
 const create{EntityName}Mutation = useMutation({
   mutationFn: {entityName}Api.create,
   onSuccess: () => {
@@ -334,65 +334,65 @@ const create{EntityName}Mutation = useMutation({
 })
 ```
 
-## Types
+## Типы
 
-- `{EntityName}` - Main entity type
-- `{EntityName}Params` - Request parameters
-- `Create{EntityName}Dto` - Data for creating
-- `Update{EntityName}Dto` - Data for updating
+- `{EntityName}` - Основной тип сущности
+- `{EntityName}Params` - Параметры запросов
+- `Create{EntityName}Dto` - Данные для создания
+- `Update{EntityName}Dto` - Данные для обновления
 
-**Note:** For paginated responses, use `PaginatedResponse<{EntityName}>` from `@/shared/types`.
+**Примечание:** Для пагинированных ответов используйте `PaginatedResponse<{EntityName}>` из `@/shared/types`.
 
-## File Structure
+## Структура файлов
 
 ```
 entities/{entity-name}/
-├── {entity-name}-types.ts      // All types and interfaces
+├── {entity-name}-types.ts      // Все типы и интерфейсы
 ├── {entity-name}-keys.ts       // TanStack Query keys
-├── {entity-name}-requests.ts   // HTTP methods ({EntityName}Requests class)
-├── {entity-name}-api.ts        // API class with query options
-├── index.ts                   // Public API exports
-└── README.md                  // Documentation
+├── {entity-name}-requests.ts   // HTTP методы (класс {EntityName}Requests)
+├── {entity-name}-api.ts        // API класс с query options
+├── index.ts                   // Экспорты публичного API
+└── README.md                  // Документация
 ```
 
-## Architecture
+## Архитектура
 
-- **`{EntityName}Requests`** - Internal class with HTTP methods only
-- **`{EntityName}Api`** - Public API class that delegates to {EntityName}Requests + provides query options
-- **Query options** - Only for queries (findById, findMany), mutations handled in custom hooks
-- **Types** - Use shared `PaginatedResponse<T>` for paginated responses
+- **`{EntityName}Requests`** - Внутренний класс только с HTTP методами
+- **`{EntityName}Api`** - Публичный API класс, который делегирует к {EntityName}Requests + предоставляет query options
+- **Query options** - Только для запросов (findById, findMany), мутации обрабатываются в кастомных хуках
+- **Типы** - Используйте общий `PaginatedResponse<T>` для пагинированных ответов
 
 ````
 
-## 📝 Naming Conventions
+## 📝 Соглашения именования
 
-### File Naming (kebab-case)
+### Именование файлов (kebab-case)
 
-- `{entity-name}-types.ts` - all types and interfaces
+- `{entity-name}-types.ts` - все типы и интерфейсы
 - `{entity-name}-keys.ts` - TanStack Query keys
-- `{entity-name}-requests.ts` - HTTP methods (internal)
-- `{entity-name}-api.ts` - public API class
+- `{entity-name}-requests.ts` - HTTP методы (внутренние)
+- `{entity-name}-api.ts` - публичный API класс
 
-### Function Naming (camelCase)
+### Именование функций (camelCase)
 
-- `findById` - finding by ID
-- `findMany` - finding many with pagination
-- `create` - creating
-- `update` - updating
-- `delete` - deleting
+- `findById` - поиск по ID
+- `findMany` - поиск многих с пагинацией
+- `create` - создание
+- `update` - обновление
+- `delete` - удаление
 
-### Type Naming (PascalCase)
+### Именование типов (PascalCase)
 
-- `{EntityName}` - main entity
-- `{EntityName}Params` - request parameters
-- `Create{EntityName}Dto` - creation data
-- `Update{EntityName}Dto` - update data
+- `{EntityName}` - основная сущность
+- `{EntityName}Params` - параметры запросов
+- `Create{EntityName}Dto` - данные для создания
+- `Update{EntityName}Dto` - данные для обновления
 
-## 🔄 Query Invalidation
+## 🔄 Инвалидация запросов
 
-### Custom Hooks for Mutations
+### Кастомные хуки для мутаций
 
-Mutations should be handled in custom hooks with proper invalidation:
+Мутации должны обрабатываться в кастомных хуках с правильной инвалидацией:
 
 ```typescript
 const useCreate{EntityName} = () => {
@@ -430,21 +430,21 @@ const useDelete{EntityName} = () => {
 }
 ````
 
-## 🎯 Best Practices
+## 🎯 Лучшие практики
 
-1. **Single Source of Truth**: Only `{EntityName}Api` is exported, `{EntityName}Requests` is internal
-2. **Type Safety**: All methods should be fully typed
-3. **Error Handling**: Use shared error handling from `@/shared/api`
-4. **Caching**: Use appropriate query keys for efficient caching
-5. **Documentation**: Document all public methods and types
-6. **Consistency**: Follow the same structure for all entities
-7. **Testing**: Write tests for all API methods and query options
-8. **Separation**: Query options only for queries, mutations in custom hooks
-9. **Reusability**: Use shared `PaginatedResponse<T>` for paginated responses
-10. **Clean Code**: Short comments, grouped interfaces, no unnecessary exports
+1. **Единый источник истины**: Только `{EntityName}Api` экспортируется, `{EntityName}Requests` внутренний
+2. **Типобезопасность**: Все методы должны быть полностью типизированы
+3. **Обработка ошибок**: Используйте общую обработку ошибок из `@/shared/api`
+4. **Кэширование**: Используйте подходящие query keys для эффективного кэширования
+5. **Документация**: Документируйте все публичные методы и типы
+6. **Консистентность**: Следуйте той же структуре для всех сущностей
+7. **Тестирование**: Напишите тесты для всех API методов и query options
+8. **Разделение**: Query options только для запросов, мутации в кастомных хуках
+9. **Переиспользование**: Используйте общий `PaginatedResponse<T>` для пагинированных ответов
+10. **Чистый код**: Краткие комментарии, сгруппированные интерфейсы, никаких лишних экспортов
 
-## 📚 Related Documentation
+## 📚 Связанная документация
 
-- [Features Hooks Guide](./features-hooks-guide.md)
-- [Project Structure](./project-structure.md)
-- [Code Standards](../code-standards.md)
+- [Руководство по хукам функций](./features-hooks-guide.md)
+- [Структура проекта](./project-structure.md)
+- [Стандарты кода](../code-standards.md)

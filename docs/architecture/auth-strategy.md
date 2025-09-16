@@ -1,8 +1,8 @@
-# Auth System Implementation Strategy
+# Стратегия реализации системы аутентификации
 
-## Architecture Overview
+## Обзор архитектуры
 
-### Folder Structure
+### Структура папок
 
 ```
 src/
@@ -33,7 +33,7 @@ src/
 
 ## Этапы внедрения
 
-### Этап 1: Cookie Management (Управление куками)
+### Этап 1: Управление куками
 
 **Цель:** Централизованное управление auth куками с поддержкой мультидоменности
 
@@ -82,7 +82,7 @@ Cookies.remove(key)
 
 Это критично для продакшена, где используется `NEXT_PUBLIC_COOKIE_DOMAIN`.
 
-### Этап 2: Axios Interceptors (Интерцепторы)
+### Этап 2: Интерцепторы Axios
 
 **Цель:** Автоматическое обновление токенов и обработка 401 ошибок
 
@@ -272,7 +272,7 @@ if (isCriticalRefreshError(refreshError)) {
 4. **Fallback** - при критических ошибках редирект на логин
 5. **Синхронизация** - куки и store всегда в актуальном состоянии
 
-### Этап 3: Middleware (Промежуточное ПО)
+### Этап 3: Промежуточное ПО (Middleware)
 
 **Цель:** Защита приватных роутов на уровне Next.js
 
@@ -379,7 +379,7 @@ persist: {
 }
 ```
 
-### Этап 5: Auth Hooks (Хуки аутентификации)
+### Этап 5: Хуки аутентификации
 
 **Цель:** React хуки для управления аутентификацией с TanStack Query
 
@@ -521,7 +521,7 @@ onSuccess: () => {
 }
 ```
 
-### Этап 6: Query Keys (Ключи для кэширования)
+### Этап 6: Ключи для кэширования
 
 **Цель:** Единообразная структура query keys для всех сущностей
 
@@ -579,7 +579,7 @@ export const userQueryKeys = {
 } as const
 ```
 
-### Этап 7: Query Parameters (URL параметры)
+### Этап 7: URL параметры
 
 **Цель:** Централизованное управление query параметрами
 
@@ -599,7 +599,7 @@ export type QueryParamKey = (typeof queryParamKeys)[keyof typeof queryParamKeys]
 
 ## Дополнительные улучшения
 
-### SSR Prefetch Utility
+### Утилита SSR Prefetch
 
 **Файл:** `src/shared/api/prefetch-utils.ts`
 
@@ -667,7 +667,7 @@ interface RegisterDto {
 }
 ```
 
-### Toast Messages (Русский язык)
+### Toast сообщения (Русский язык)
 
 ```typescript
 // Успешные операции
@@ -689,11 +689,11 @@ toast.warning('Выход выполнен (с предупреждением)')
 
 ### 1. Порядок внедрения
 
-1. Cookie Management (база)
-2. Axios Interceptors (автоматизация)
+1. Управление куками (база)
+2. Интерцепторы Axios (автоматизация)
 3. Middleware (защита)
 4. Store (клиентский стейт)
-5. Hooks (React интеграция)
+5. Хуки (React интеграция)
 6. Query Params (URL управление)
 
 ### 2. Ключевые принципы

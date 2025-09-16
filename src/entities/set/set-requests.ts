@@ -1,6 +1,12 @@
 import { apiRoutes, axiosClient } from '@/shared/api'
 import type { PaginatedResponse } from '@/shared/types'
-import type { CreateSetDto, Set, SetParams, UpdateSetDto } from './set-types'
+import type {
+  CreateSetDto,
+  Set,
+  SetParams,
+  SetWithCards,
+  UpdateSetDto,
+} from './set-types'
 
 /**
  * Set requests class
@@ -39,8 +45,11 @@ class SetRequests {
   /**
    * Create new set
    */
-  async create(data: CreateSetDto): Promise<Set> {
-    const response = await axiosClient.post<Set>(apiRoutes.set.create, data)
+  async create(data: CreateSetDto): Promise<SetWithCards> {
+    const response = await axiosClient.post<SetWithCards>(
+      apiRoutes.set.create,
+      data,
+    )
     return response.data
   }
 

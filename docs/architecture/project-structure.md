@@ -1,17 +1,17 @@
-# FindOut Client Project Structure
+# Структура проекта FindOut Client
 
-## Architecture Overview
+## Обзор архитектуры
 
-The project is built on Feature-Sliced Design (FSD) principles with adaptation for Next.js and project specifics.
+Проект построен на принципах Feature-Sliced Design (FSD) с адаптацией для Next.js и специфики проекта.
 
-## Root Structure
+## Корневая структура
 
 ```
 space4quizlet/
-├── docs/                    # Project documentation
-│   ├── auth-strategy.md    # Auth implementation strategy
-│   └── project-structure.md # Project structure
-├── public/                  # Static files
+├── docs/                    # Документация проекта
+│   ├── auth-strategy.md    # Стратегия реализации аутентификации
+│   └── project-structure.md # Структура проекта
+├── public/                  # Статические файлы
 │   ├── file.svg
 │   ├── globe.svg
 │   ├── icons/
@@ -23,58 +23,58 @@ space4quizlet/
 │   ├── next.svg
 │   ├── vercel.svg
 │   └── window.svg
-├── src/                     # Source code
-├── tools/                   # Development tools
+├── src/                     # Исходный код
+├── tools/                   # Инструменты разработки
 │   └── eslint/
 │       ├── custom-config.ts
 │       └── rules/
 │           ├── no-console.ts
 │           └── index.ts
-├── .eslintrc.json          # ESLint configuration
-├── .gitignore              # Git ignore rules
-├── next.config.js          # Next.js configuration
-├── package.json            # Project dependencies
-├── postcss.config.js       # PostCSS configuration
-├── tailwind.config.js      # Tailwind CSS configuration
-└── tsconfig.json           # TypeScript configuration
+├── .eslintrc.json          # Конфигурация ESLint
+├── .gitignore              # Правила игнорирования Git
+├── next.config.js          # Конфигурация Next.js
+├── package.json            # Зависимости проекта
+├── postcss.config.js       # Конфигурация PostCSS
+├── tailwind.config.js      # Конфигурация Tailwind CSS
+└── tsconfig.json           # Конфигурация TypeScript
 ```
 
-## Source Code Structure (src/)
+## Структура исходного кода (src/)
 
 ```
 src/
 ├── app/                     # Next.js App Router
-│   ├── (admin)/            # Admin route group
+│   ├── (admin)/            # Группа роутов админки
 │   │   └── admin/
 │   │       └── page.tsx
-│   ├── (auth)/             # Auth route group
+│   ├── (auth)/             # Группа роутов аутентификации
 │   │   └── auth/
 │   │       ├── login/
 │   │       │   └── page.tsx
 │   │       └── register/
 │   │           └── page.tsx
-│   ├── (base)/             # Base route group
+│   ├── (base)/             # Базовая группа роутов
 │   │   └── page.tsx
-│   ├── (workspace)/        # Workspace route group
+│   ├── (workspace)/        # Группа роутов рабочего пространства
 │   │   └── workspace/
 │   │       ├── page.tsx
 │   │       └── layout.tsx
 │   ├── favicon.ico
-│   ├── globals.css         # Global styles
-│   └── layout.tsx          # Root layout
-├── entities/               # Business entities
-│   ├── auth/              # Authentication entity
+│   ├── globals.css         # Глобальные стили
+│   └── layout.tsx          # Корневой layout
+├── entities/               # Бизнес-сущности
+│   ├── auth/              # Сущность аутентификации
 │   │   ├── auth.api.ts
 │   │   ├── auth.qkeys.ts
 │   │   ├── auth.types.ts
 │   │   └── index.ts
-│   └── user/              # User entity
+│   └── user/              # Сущность пользователя
 │       ├── user.api.ts
 │       ├── user.qkeys.ts
 │       ├── user.types.ts
 │       └── index.ts
-├── features/              # Business features
-│   ├── auth/              # Authentication feature
+├── features/              # Бизнес-функции
+│   ├── auth/              # Функция аутентификации
 │   │   ├── model/
 │   │   │   ├── hooks/
 │   │   │   │   ├── use-login.ts
@@ -91,7 +91,7 @@ src/
 │   │   │   ├── register-form.tsx
 │   │   │   └── index.ts
 │   │   └── index.ts
-│   └── user/              # User feature
+│   └── user/              # Функция пользователя
 │       ├── model/
 │       │   ├── hooks/
 │       │   │   ├── use-user-profile.ts
@@ -101,54 +101,54 @@ src/
 │       │   ├── user-profile.tsx
 │       │   └── index.ts
 │       └── index.ts
-├── screens/               # Page components
-│   ├── auth/              # Auth pages
+├── screens/               # Компоненты страниц
+│   ├── auth/              # Страницы аутентификации
 │   │   ├── login/
 │   │   │   └── page.tsx
 │   │   └── register/
 │   │       └── page.tsx
-│   └── workspace/         # Workspace pages
+│   └── workspace/         # Страницы рабочего пространства
 │       ├── page.tsx
 │       ├── layout.tsx
 │       └── ui/
 │           ├── workspace-sidebar.tsx
 │           ├── workspace-header.tsx
 │           └── index.ts
-├── shared/                # Shared resources
-│   ├── api/               # API configuration
+├── shared/                # Общие ресурсы
+│   ├── api/               # Конфигурация API
 │   │   ├── axios.ts
 │   │   ├── query-client.ts
 │   │   └── index.ts
-│   ├── components/        # Shared components
-│   │   ├── ui/            # UI components
+│   ├── components/        # Общие компоненты
+│   │   ├── ui/            # UI компоненты
 │   │   │   ├── button.tsx
 │   │   │   ├── input.tsx
 │   │   │   ├── modal.tsx
 │   │   │   └── index.ts
 │   │   └── index.ts
-│   ├── config/            # Configuration
+│   ├── config/            # Конфигурация
 │   │   ├── app-config.ts
 │   │   ├── app-routes.ts
 │   │   └── index.ts
-│   ├── constants/         # Constants
+│   ├── constants/         # Константы
 │   │   ├── api-endpoints.ts
 │   │   ├── query-params.ts
 │   │   └── index.ts
-│   ├── hooks/             # Shared hooks
+│   ├── hooks/             # Общие хуки
 │   │   ├── use-local-storage.ts
 │   │   └── index.ts
-│   ├── lib/               # Utilities
+│   ├── lib/               # Утилиты
 │   │   ├── utils.ts
 │   │   ├── validations.ts
 │   │   └── index.ts
-│   ├── types/             # Shared types
+│   ├── types/             # Общие типы
 │   │   ├── common.ts
 │   │   └── index.ts
-│   └── utils/             # Utility functions
+│   └── utils/             # Утилитарные функции
 │       ├── auth-cookies.ts
 │       ├── logger.ts
 │       └── index.ts
-└── widgets/               # Complex UI blocks
+└── widgets/               # Сложные UI блоки
     ├── header/
     │   ├── header.tsx
     │   └── index.ts
@@ -157,125 +157,125 @@ src/
         └── index.ts
 ```
 
-## Layer Descriptions
+## Описание слоев
 
 ### 1. App Layer (`src/app/`)
 
-- **Purpose**: Next.js App Router configuration
-- **Contains**: Route groups, layouts, pages
-- **Rules**: Only routing logic, no business logic
+- **Назначение**: Конфигурация Next.js App Router
+- **Содержит**: Группы роутов, layouts, страницы
+- **Правила**: Только логика роутинга, без бизнес-логики
 
 ### 2. Pages Layer (`src/screens/`)
 
-- **Purpose**: Page-level components
-- **Contains**: Page components, layouts
-- **Rules**: Composition of features and widgets
+- **Назначение**: Компоненты уровня страниц
+- **Содержит**: Компоненты страниц, layouts
+- **Правила**: Композиция функций и виджетов
 
 ### 3. Widgets Layer (`src/widgets/`)
 
-- **Purpose**: Complex UI blocks
-- **Contains**: Composite components
-- **Rules**: Combine multiple features
+- **Назначение**: Сложные UI блоки
+- **Содержит**: Композитные компоненты
+- **Правила**: Объединяют несколько функций
 
 ### 4. Features Layer (`src/features/`)
 
-- **Purpose**: Business features
-- **Contains**: Feature logic, hooks, components
-- **Rules**: Self-contained business logic
+- **Назначение**: Бизнес-функции
+- **Содержит**: Логику функций, хуки, компоненты
+- **Правила**: Самодостаточная бизнес-логика
 
 ### 5. Entities Layer (`src/entities/`)
 
-- **Purpose**: Business entities
-- **Contains**: API methods, types, query keys
-- **Rules**: Pure business logic, no UI
+- **Назначение**: Бизнес-сущности
+- **Содержит**: API методы, типы, query keys
+- **Правила**: Чистая бизнес-логика, без UI
 
 ### 6. Shared Layer (`src/shared/`)
 
-- **Purpose**: Shared resources
-- **Contains**: Common components, utilities, configs
-- **Rules**: Reusable across all layers
+- **Назначение**: Общие ресурсы
+- **Содержит**: Общие компоненты, утилиты, конфигурации
+- **Правила**: Переиспользуемые во всех слоях
 
-## Import Rules
+## Правила импортов
 
-### Import Order
+### Порядок импортов
 
-1. **React and external libraries**
-2. **Shared modules**
-3. **Entities**
-4. **Features**
-5. **Local imports**
+1. **React и внешние библиотеки**
+2. **Общие модули**
+3. **Сущности**
+4. **Функции**
+5. **Локальные импорты**
 
-### Example
+### Пример
 
 ```typescript
-// 1. React and external libraries
+// 1. React и внешние библиотеки
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
-// 4. Features
+// 4. Функции
 import { useAuth } from '@/features/auth'
-// 3. Entities
+// 3. Сущности
 import { authApi } from '@/entities/auth'
-// 2. Shared modules
+// 2. Общие модули
 import { Button } from '@/shared/components/ui/button'
 import { logError } from '@/shared/utils'
-// 5. Local imports
+// 5. Локальные импорты
 import { workspaceData } from '../lib'
 import { NavMain } from './nav-main'
 ```
 
-## File Naming Conventions
+## Соглашения именования файлов
 
-### Files and Directories
+### Файлы и папки
 
-- **Use kebab-case**: `user-profile.tsx`, `auth-store.ts`
-- **All lowercase**: `button.tsx`, `input.tsx`
-- **Separate words with hyphens**: `use-user-profile.ts`
+- **Используйте kebab-case**: `user-profile.tsx`, `auth-store.ts`
+- **Все в нижнем регистре**: `button.tsx`, `input.tsx`
+- **Разделяйте слова дефисами**: `use-user-profile.ts`
 
-### Components
+### Компоненты
 
-- **Use PascalCase**: `UserProfile`, `AuthStore`
-- **Descriptive names**: `LoginForm`, `UserCard`
+- **Используйте PascalCase**: `UserProfile`, `AuthStore`
+- **Описательные имена**: `LoginForm`, `UserCard`
 
-### Functions and Variables
+### Функции и переменные
 
-- **Use camelCase**: `getUserById`, `isLoading`
-- **Descriptive names**: `handleSubmit`, `validateEmail`
+- **Используйте camelCase**: `getUserById`, `isLoading`
+- **Описательные имена**: `handleSubmit`, `validateEmail`
 
-## Best Practices
+## Лучшие практики
 
-### 1. Layer Isolation
+### 1. Изоляция слоев
 
-- **Don't import from higher layers**: Features can't import from Pages
-- **Use shared layer**: Common functionality goes to shared
-- **Entity independence**: Entities don't depend on other layers
+- **Не импортируйте из вышестоящих слоев**: Features не могут импортировать из Pages
+- **Используйте shared слой**: Общая функциональность идет в shared
+- **Независимость сущностей**: Сущности не зависят от других слоев
 
-### 2. Component Structure
+### 2. Структура компонентов
 
-- **Single responsibility**: One component, one purpose
-- **Composition over inheritance**: Combine small components
-- **Props interface**: Use `Props` type for component props
+- **Единая ответственность**: Один компонент, одна цель
+- **Композиция вместо наследования**: Объединяйте маленькие компоненты
+- **Интерфейс props**: Используйте тип `Props` для props компонента
 
-### 3. State Management
+### 3. Управление состоянием
 
-- **Local state**: Use `useState` for component state
-- **Global state**: Use Zustand for app-wide state
-- **Server state**: Use TanStack Query for API data
+- **Локальное состояние**: Используйте `useState` для состояния компонента
+- **Глобальное состояние**: Используйте Zustand для состояния приложения
+- **Состояние сервера**: Используйте TanStack Query для данных API
 
-### 4. Error Handling
+### 4. Обработка ошибок
 
-- **Error boundaries**: Catch and handle errors gracefully
-- **Toast notifications**: Provide user feedback
-- **Logging**: Use structured logging for debugging
+- **Error boundaries**: Ловите и обрабатывайте ошибки gracefully
+- **Toast уведомления**: Предоставляйте обратную связь пользователю
+- **Логирование**: Используйте структурированное логирование для отладки
 
-### 5. Performance
+### 5. Производительность
 
-- **Code splitting**: Lazy load components when possible
-- **Memoization**: Use `useMemo` and `useCallback` appropriately
-- **Query optimization**: Use proper query keys and caching
+- **Разделение кода**: Ленивая загрузка компонентов когда возможно
+- **Мемоизация**: Используйте `useMemo` и `useCallback` уместно
+- **Оптимизация запросов**: Используйте правильные query keys и кэширование
 
-## Related Documentation
+## Связанная документация
 
-- [Entity Structure Guide](./entity-structure-guide.md)
-- [Features Hooks Guide](./features-hooks-guide.md)
-- [Code Standards](../code-standards.md)
+- [Руководство по структуре сущностей](./entity-structure-guide.md)
+- [Руководство по хукам функций](./features-hooks-guide.md)
+- [Стандарты кода](../code-standards.md)

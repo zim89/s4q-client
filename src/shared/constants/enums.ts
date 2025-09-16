@@ -56,8 +56,12 @@ export type ContentType = (typeof contentTypes)[keyof typeof contentTypes]
  */
 export const contentStatuses = {
   draft: 'DRAFT',
+  review: 'REVIEW',
+  approved: 'APPROVED',
   published: 'PUBLISHED',
   archived: 'ARCHIVED',
+  deleted: 'DELETED',
+  suspended: 'SUSPENDED',
 } as const
 
 export type ContentStatus =

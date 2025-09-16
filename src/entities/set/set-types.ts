@@ -4,6 +4,7 @@ import type {
   SetSortField,
   SortOrder,
 } from '@/shared/constants'
+import type { Card, CreateCardDto } from '../card/card-types'
 
 // ==============================
 // REQUEST PARAMETERS
@@ -50,6 +51,14 @@ export interface Set {
 // ADDITIONAL TYPES
 // ==============================
 
+/** Card in set (either existing or new) */
+export interface CreateSetCardDto {
+  /** ID of existing card to add to set */
+  existingCardId?: string
+  /** Data for creating new card */
+  newCard?: CreateCardDto
+}
+
 /** Creating set */
 export interface CreateSetDto {
   name: string
@@ -57,6 +66,8 @@ export interface CreateSetDto {
   isBase?: boolean
   isPublic?: boolean
   level?: LanguageLevel
+  /** Cards for the set (minimum 2) */
+  cards: CreateSetCardDto[]
 }
 
 /** Updating set */
@@ -66,4 +77,9 @@ export interface UpdateSetDto {
   isBase?: boolean
   isPublic?: boolean
   level?: LanguageLevel
+}
+
+/** Set with cards (returned from create) */
+export interface SetWithCards extends Set {
+  cards: Card[]
 }

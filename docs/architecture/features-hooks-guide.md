@@ -1,34 +1,14 @@
-# Custom Hooks Guide for Features
+# Руководство по кастомным хукам для функций
 
-## 🎯 Features Structure
+> **Примечание:** Для полной структуры функций см. [Руководство по структуре функций](./feature-structure-guide.md)
 
-```
-src/features/{feature-name}/
-├── model/
-│   ├── hooks/
-│   │   ├── use-{feature}-data.ts
-│   │   ├── use-{feature}-list.ts
-│   │   ├── use-create-{feature}.ts
-│   │   ├── use-update-{feature}.ts
-│   │   ├── use-delete-{feature}.ts
-│   │   └── index.ts
-│   ├── store/
-│   │   ├── {feature}-store.ts
-│   │   └── index.ts
-│   └── index.ts
-├── ui/
-│   ├── {feature}-component.tsx
-│   └── index.ts
-└── index.ts
-```
+## 🔄 Кастомные хуки в функциях
 
-## 🔄 Custom Hooks in Features
+### 1. Query хуки (для получения данных)
 
-### 1. Query Hooks (for data fetching)
+#### Принципы создания query хуков
 
-#### Principles for creating query hooks
-
-**✅ Correct - hooks only for data:**
+**✅ Правильно - хуки только для данных:**
 
 ```typescript
 // use-category-children.ts
@@ -43,7 +23,7 @@ export const useCategoryChildren = (params?: CategoryChildrenParams) => {
   })
 }
 
-// Component with UI logic
+// Компонент с UI логикой
 export const CategoryList = ({ params }: Props) => {
   const { data, isLoading, isError } = useCategoryChildren(params)
 
@@ -61,16 +41,16 @@ export const CategoryList = ({ params }: Props) => {
 }
 ```
 
-**❌ Incorrect - mixing data and UI logic:**
+**❌ Неправильно - смешивание данных и UI логики:**
 
 ```typescript
-// ❌ Don't do this
+// ❌ Не делайте так
 export const useCategoryChildren = (params?: CategoryChildrenParams) => {
   const { data, isLoading, isError } = useQuery({
     ...categoryApi.getCategoryChildrenQueryOptions(params),
   })
 
-  // ❌ UI logic in hook
+  // ❌ UI логика в хуке
   if (isLoading) return <CategorySkeleton />
   if (isError) return <CategoryError />
   if (!data?.length) return <CategoryEmpty />
@@ -79,7 +59,7 @@ export const useCategoryChildren = (params?: CategoryChildrenParams) => {
 }
 ```
 
-#### Query Hook Structure
+#### Структура Query хука
 
 ```typescript
 // use-{feature}-data.ts
@@ -89,10 +69,10 @@ import { useQuery } from '@tanstack/react-query'
 import { {entityName}Api, type {EntityName}Params } from '@/entities/{entity-name}'
 
 /**
- * Hook for fetching {feature} data
+ * Хук для получения данных {feature}
  *
- * @param params - Query parameters
- * @returns Query result with data, loading, error states
+ * @param params - Параметры запроса
+ * @returns Результат запроса с данными, состояниями загрузки и ошибки
  */
 export const use{Feature}Data = (params?: {EntityName}Params) => {
   return useQuery({
@@ -101,11 +81,11 @@ export const use{Feature}Data = (params?: {EntityName}Params) => {
 }
 ```
 
-### 2. Mutation Hooks (for data modification)
+### 2. Mutation хуки (для изменения данных)
 
-#### Principles for creating mutation hooks
+#### Принципы создания mutation хуков
 
-**✅ Correct - hooks with proper error handling and callbacks:**
+**✅ Правильно - хуки с правильной обработкой ошибок и коллбэками:**
 
 ```typescript
 // use-create-category.ts
@@ -123,6 +103,8 @@ import { logError } from '@/shared/utils'
 
 // use-create-category.ts
 
+// use-create-category.ts
+
 interface UseCreateCategoryOptions {
   onSuccess?: (data: Category) => void
   onError?: (error: Error, variables: CreateCategoryDto) => void
@@ -130,10 +112,10 @@ interface UseCreateCategoryOptions {
 }
 
 /**
- * Hook for creating a new category
+ * Хук для создания новой категории
  *
- * @param options - Callback options for mutation lifecycle
- * @returns Mutation object with methods and states
+ * @param options - Опции коллбэков для жизненного цикла мутации
+ * @returns Объект мутации с методами и состояниями
  */
 export const useCreateCategory = (options: UseCreateCategoryOptions = {}) => {
   const router = useRouter()
@@ -142,41 +124,41 @@ export const useCreateCategory = (options: UseCreateCategoryOptions = {}) => {
   return useMutation({
     mutationFn: categoryApi.create,
 
-    // Retry logic
+    // Логика повторных попыток
     retry: 2,
     retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 10000),
 
     onSuccess: (data, variables, context) => {
-      // Toast success notification
-      toast.success('Category created successfully')
+      // Toast уведомление об успехе
+      toast.success('Категория успешно создана')
 
-      // Invalidate related queries
+      // Инвалидация связанных запросов
       queryClient.invalidateQueries({ queryKey: categoryKeys.all() })
 
-      // Call success callback
+      // Вызов коллбэка успеха
       options.onSuccess?.(data)
     },
 
     onError: (error, variables, context) => {
-      // Log error
-      logError('❌ [useCreateCategory] Create error:', error)
+      // Логирование ошибки
+      logError('❌ [useCreateCategory] Ошибка создания:', error)
 
-      // Toast error notification
-      toast.error('Failed to create category. Please try again.')
+      // Toast уведомление об ошибке
+      toast.error('Не удалось создать категорию. Попробуйте снова.')
 
-      // Call error callback
+      // Вызов коллбэка ошибки
       options.onError?.(error, variables)
     },
 
     onSettled: () => {
-      // Call settled callback
+      // Вызов коллбэка завершения
       options.onSettled?.()
     },
   })
 }
 ```
 
-#### Mutation Hook Structure
+#### Структура Mutation хука
 
 ```typescript
 // use-create-{feature}.ts
@@ -195,10 +177,10 @@ interface UseCreate{Feature}Options {
 }
 
 /**
- * Hook for creating a new {feature}
+ * Хук для создания нового {feature}
  *
- * @param options - Callback options for mutation lifecycle
- * @returns Mutation object with methods and states
+ * @param options - Опции коллбэков для жизненного цикла мутации
+ * @returns Объект мутации с методами и состояниями
  */
 export const useCreate{Feature} = (options: UseCreate{Feature}Options = {}) => {
   const router = useRouter()
@@ -207,197 +189,197 @@ export const useCreate{Feature} = (options: UseCreate{Feature}Options = {}) => {
   return useMutation({
     mutationFn: {entityName}Api.create,
 
-    // Retry logic
+    // Логика повторных попыток
     retry: 2,
     retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 10000),
 
     onSuccess: (data, variables, context) => {
-      // Toast success notification
-      toast.success('{Feature} created successfully')
+      // Toast уведомление об успехе
+      toast.success('{Feature} успешно создан')
 
-      // Invalidate related queries
+      // Инвалидация связанных запросов
       queryClient.invalidateQueries({ queryKey: {entityName}Keys.all() })
 
-      // Call success callback
+      // Вызов коллбэка успеха
       options.onSuccess?.(data)
     },
 
     onError: (error, variables, context) => {
-      // Log error
-      logError('❌ [useCreate{Feature}] Create error:', error)
+      // Логирование ошибки
+      logError('❌ [useCreate{Feature}] Ошибка создания:', error)
 
-      // Toast error notification
-      toast.error('Failed to create {feature}. Please try again.')
+      // Toast уведомление об ошибке
+      toast.error('Не удалось создать {feature}. Попробуйте снова.')
 
-      // Call error callback
+      // Вызов коллбэка ошибки
       options.onError?.(error, variables)
     },
 
     onSettled: () => {
-      // Call settled callback
+      // Вызов коллбэка завершения
       options.onSettled?.()
     },
   })
 }
 ```
 
-### 3. Toast Notifications
+### 3. Toast уведомления
 
-#### Principles for toast notifications
+#### Принципы toast уведомлений
 
-- **Success operations**: Use `toast.success()` with descriptive message
-- **Error operations**: Use `toast.error()` with helpful error message
-- **Warning operations**: Use `toast.warning()` for non-critical issues
-- **All messages should be in English**
+- **Успешные операции**: Используйте `toast.success()` с описательным сообщением
+- **Ошибки операций**: Используйте `toast.error()` с полезным сообщением об ошибке
+- **Предупреждения**: Используйте `toast.warning()` для некритичных проблем
+- **Все сообщения должны быть на русском языке**
 
 ```typescript
-// ✅ Correct - Toast notifications
+// ✅ Правильно - Toast уведомления
 onSuccess: (data) => {
-  toast.success('User created successfully')
-  // ... other logic
+  toast.success('Пользователь успешно создан')
+  // ... другая логика
 },
 
 onError: (error) => {
-  toast.error('Failed to create user. Please try again.')
-  // ... other logic
+  toast.error('Не удалось создать пользователя. Попробуйте снова.')
+  // ... другая логика
 },
 
 onSettled: () => {
-  toast.warning('Operation completed with warnings')
-  // ... other logic
+  toast.warning('Операция завершена с предупреждениями')
+  // ... другая логика
 }
 ```
 
-### 4. Callbacks
+### 4. Коллбэки
 
-#### Principles for callbacks
+#### Принципы коллбэков
 
-- **onSuccess**: Called when mutation succeeds, receives data and variables
-- **onError**: Called when mutation fails, receives error and variables
-- **onSettled**: Called when mutation completes (success or error)
-- **All callbacks are optional and can be overridden**
+- **onSuccess**: Вызывается при успехе мутации, получает данные и переменные
+- **onError**: Вызывается при ошибке мутации, получает ошибку и переменные
+- **onSettled**: Вызывается при завершении мутации (успех или ошибка)
+- **Все коллбэки опциональны и могут быть переопределены**
 
 ```typescript
-// ✅ Correct - Callback usage
+// ✅ Правильно - Использование коллбэков
 const createUserMutation = useCreateUser({
   onSuccess: user => {
-    console.log('User created:', user)
+    console.log('Пользователь создан:', user)
     router.push(`/users/${user.id}`)
   },
   onError: (error, userData) => {
-    console.error('Failed to create user:', error)
-    // Custom error handling
+    console.error('Не удалось создать пользователя:', error)
+    // Кастомная обработка ошибок
   },
   onSettled: () => {
-    console.log('Create user operation completed')
-    // Cleanup logic
+    console.log('Операция создания пользователя завершена')
+    // Логика очистки
   },
 })
 ```
 
-### 5. Retry Logic
+### 5. Логика повторных попыток
 
-#### Principles for retry logic
+#### Принципы логики повторных попыток
 
-- **Query hooks**: Usually don't need retry (TanStack Query handles it)
-- **Mutation hooks**: Use retry for network errors, not for business logic errors
-- **Retry delay**: Use exponential backoff
+- **Query хуки**: Обычно не нуждаются в retry (TanStack Query обрабатывает это)
+- **Mutation хуки**: Используйте retry для сетевых ошибок, не для ошибок бизнес-логики
+- **Задержка retry**: Используйте экспоненциальную задержку
 
 ```typescript
-// ✅ Correct - Retry logic
+// ✅ Правильно - Логика повторных попыток
 return useMutation({
   mutationFn: api.create,
 
-  // Retry configuration
-  retry: 2, // Retry up to 2 times
-  retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 10000), // Exponential backoff
+  // Конфигурация retry
+  retry: 2, // Повторить до 2 раз
+  retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 10000), // Экспоненциальная задержка
 
   onError: (error) => {
-    // Only retry on network errors, not business logic errors
+    // Повторять только при сетевых ошибках, не при ошибках бизнес-логики
     if (error.status === 500) {
-      // Will retry
+      // Будет повторять
     } else if (error.status === 400) {
-      // Won't retry - business logic error
+      // Не будет повторять - ошибка бизнес-логики
     }
   },
 })
 ```
 
-### 6. Optimistic Updates
+### 6. Оптимистичные обновления
 
-#### Principles for optimistic updates
+#### Принципы оптимистичных обновлений
 
-- **Use for UI responsiveness**: Update UI immediately, rollback on error
-- **Provide rollback mechanism**: Store previous state for rollback
-- **Handle edge cases**: Consider what happens if optimistic update fails
+- **Используйте для отзывчивости UI**: Обновляйте UI немедленно, откатывайте при ошибке
+- **Предоставляйте механизм отката**: Сохраняйте предыдущее состояние для отката
+- **Обрабатывайте крайние случаи**: Учитывайте, что происходит, если оптимистичное обновление не удается
 
 ```typescript
-// ✅ Correct - Optimistic updates
+// ✅ Правильно - Оптимистичные обновления
 return useMutation({
   mutationFn: api.update,
 
   onMutate: async (newData) => {
-    // Cancel outgoing refetches
+    // Отменить исходящие запросы
     await queryClient.cancelQueries({ queryKey: {entityName}Keys.detail(newData.id) })
 
-    // Snapshot previous value
+    // Снимок предыдущего значения
     const previousData = queryClient.getQueryData({entityName}Keys.detail(newData.id))
 
-    // Optimistically update
+    // Оптимистично обновить
     queryClient.setQueryData({entityName}Keys.detail(newData.id), newData)
 
-    // Return context for rollback
+    // Вернуть контекст для отката
     return { previousData }
   },
 
   onError: (error, newData, context) => {
-    // Rollback on error
+    // Откат при ошибке
     if (context?.previousData) {
       queryClient.setQueryData({entityName}Keys.detail(newData.id), context.previousData)
     }
   },
 
   onSettled: (data, error, newData) => {
-    // Always refetch after error or success
+    // Всегда перезапрашивать после ошибки или успеха
     queryClient.invalidateQueries({ queryKey: {entityName}Keys.detail(newData.id) })
   },
 })
 ```
 
-## 📋 Checklist for Mutation Hooks
+## 📋 Чеклист для Mutation хуков
 
-### Required Elements:
+### Обязательные элементы:
 
-- [ ] **JSDoc documentation** with description and parameter types
-- [ ] **Toast notifications** for success and error states
-- [ ] **Callback options** (onSuccess, onError, onSettled)
-- [ ] **Retry logic** with exponential backoff
-- [ ] **Error logging** using logError helper
-- [ ] **Query invalidation** for related queries
-- [ ] **Type safety** for all parameters and return values
+- [ ] **JSDoc документация** с описанием и типами параметров
+- [ ] **Toast уведомления** для состояний успеха и ошибки
+- [ ] **Опции коллбэков** (onSuccess, onError, onSettled)
+- [ ] **Логика повторных попыток** с экспоненциальной задержкой
+- [ ] **Логирование ошибок** с помощью logError helper
+- [ ] **Инвалидация запросов** для связанных запросов
+- [ ] **Типобезопасность** для всех параметров и возвращаемых значений
 
-### Optional Elements:
+### Опциональные элементы:
 
-- [ ] **Optimistic updates** for better UX
-- [ ] **Loading states** management
-- [ ] **Custom error handling** for specific cases
-- [ ] **Navigation** after successful operations
+- [ ] **Оптимистичные обновления** для лучшего UX
+- [ ] **Управление состояниями загрузки**
+- [ ] **Кастомная обработка ошибок** для конкретных случаев
+- [ ] **Навигация** после успешных операций
 
-## 🎯 Best Practices
+## 🎯 Лучшие практики
 
-1. **Separation of Concerns**: Keep data logic in hooks, UI logic in components
-2. **Error Handling**: Always provide meaningful error messages
-3. **User Feedback**: Use toast notifications for all operations
-4. **Type Safety**: Fully type all hooks and their parameters
-5. **Documentation**: Document all public hooks with JSDoc
-6. **Testing**: Write tests for all custom hooks
-7. **Performance**: Use appropriate caching and invalidation strategies
-8. **Accessibility**: Ensure error messages are accessible
-9. **Consistency**: Follow the same patterns across all hooks
-10. **Callbacks**: Provide flexible callback system for customization
+1. **Разделение ответственности**: Держите логику данных в хуках, UI логику в компонентах
+2. **Обработка ошибок**: Всегда предоставляйте осмысленные сообщения об ошибках
+3. **Обратная связь с пользователем**: Используйте toast уведомления для всех операций
+4. **Типобезопасность**: Полностью типизируйте все хуки и их параметры
+5. **Документация**: Документируйте все публичные хуки с JSDoc
+6. **Тестирование**: Напишите тесты для всех кастомных хуков
+7. **Производительность**: Используйте подходящие стратегии кэширования и инвалидации
+8. **Доступность**: Убедитесь, что сообщения об ошибках доступны
+9. **Консистентность**: Следуйте одинаковым паттернам во всех хуках
+10. **Коллбэки**: Предоставляйте гибкую систему коллбэков для кастомизации
 
-## 📚 Related Documentation
+## 📚 Связанная документация
 
-- [Entity Structure Guide](./entity-structure-guide.md)
-- [Project Structure](./project-structure.md)
-- [Code Standards](../code-standards.md)
+- [Руководство по структуре сущностей](./entity-structure-guide.md)
+- [Структура проекта](./project-structure.md)
+- [Стандарты кода](../code-standards.md)

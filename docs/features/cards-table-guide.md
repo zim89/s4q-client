@@ -1,38 +1,38 @@
-# Cards Table with Server-Side Pagination
+# Таблица карточек с серверной пагинацией
 
-This guide explains how to use the Cards Table component with server-side pagination, sorting, and filtering.
+Это руководство объясняет, как использовать компонент Cards Table с серверной пагинацией, сортировкой и фильтрацией.
 
-## Overview
+## Обзор
 
-The Cards Table is built using TanStack Table with shadcn/ui components and provides:
+Таблица карточек построена с использованием TanStack Table с компонентами shadcn/ui и предоставляет:
 
-- **Server-side pagination** - Only loads data for the current page
-- **Server-side sorting** - Sorting is handled by the API
-- **Server-side filtering** - Search is handled by the API
-- **URL state management** - Table state is synchronized with URL parameters
-- **Responsive design** - Works on all screen sizes
+- **Серверная пагинация** - Загружает данные только для текущей страницы
+- **Серверная сортировка** - Сортировка обрабатывается API
+- **Серверная фильтрация** - Поиск обрабатывается API
+- **Управление состоянием URL** - Состояние таблицы синхронизировано с параметрами URL
+- **Адаптивный дизайн** - Работает на всех размерах экрана
 
-## Components
+## Компоненты
 
-### Main Components
+### Основные компоненты
 
-- **`CardsTable`** - Main table component with all functionality
-- **`cardsTableColumns`** - Column definitions with sorting and actions
-- **`CardsTablePagination`** - Pagination controls component
+- **`CardsTable`** - Основной компонент таблицы со всей функциональностью
+- **`cardsTableColumns`** - Определения колонок с сортировкой и действиями
+- **`CardsTablePagination`** - Компонент управления пагинацией
 
-### File Structure
+### Структура файлов
 
 ```
 src/features/card/ui/
-├── cards-table.tsx              # Main table component
-├── cards-table-columns.tsx      # Column definitions
-├── cards-table-pagination.tsx   # Pagination component
-└── index.ts                     # Exports
+├── cards-table.tsx              # Основной компонент таблицы
+├── cards-table-columns.tsx      # Определения колонок
+├── cards-table-pagination.tsx   # Компонент пагинации
+└── index.ts                     # Экспорты
 ```
 
-## Usage
+## Использование
 
-### Basic Usage
+### Базовое использование
 
 ```tsx
 import { CardsTable } from '@/features/card'
@@ -41,9 +41,9 @@ export const MyPage = () => {
   return (
     <div className='container py-8'>
       <div className='mb-6'>
-        <h1 className='text-3xl font-bold'>Flashcards</h1>
+        <h1 className='text-3xl font-bold'>Флешкарты</h1>
         <p className='text-muted-foreground'>
-          Manage your flashcard collection
+          Управляйте своей коллекцией флешкарт
         </p>
       </div>
       <CardsTable />
@@ -52,77 +52,77 @@ export const MyPage = () => {
 }
 ```
 
-### URL Parameters
+### Параметры URL
 
-The table automatically manages these URL parameters:
+Таблица автоматически управляет этими параметрами URL:
 
-- **`page`** - Current page number (default: 1)
-- **`limit`** - Items per page (default: 10)
-- **`search`** - Search query
-- **`sort`** - Sort field (e.g., 'wordOrPhrase', 'createdAt')
-- **`order`** - Sort order ('asc' or 'desc')
+- **`page`** - Номер текущей страницы (по умолчанию: 1)
+- **`limit`** - Элементов на странице (по умолчанию: 10)
+- **`search`** - Поисковый запрос
+- **`sort`** - Поле сортировки (например, 'term', 'createdAt')
+- **`order`** - Порядок сортировки ('asc' или 'desc')
 
-Example URL: `/cards?page=2&limit=20&search=hello&sort=wordOrPhrase&order=asc`
+Пример URL: `/cards?page=2&limit=20&search=hello&sort=term&order=asc`
 
-## Features
+## Функции
 
-### 1. Pagination
+### 1. Пагинация
 
-- **Page size selection**: 10, 20, 25, 30, 40, 50 items per page
-- **Navigation**: First, previous, next, last page buttons
-- **Page counter**: Shows current page and total pages
-- **Selection counter**: Shows selected rows count
+- **Выбор размера страницы**: 10, 20, 25, 30, 40, 50 элементов на странице
+- **Навигация**: Кнопки первой, предыдущей, следующей, последней страницы
+- **Счетчик страниц**: Показывает текущую страницу и общее количество страниц
+- **Счетчик выбора**: Показывает количество выбранных строк
 
-### 2. Sorting
+### 2. Сортировка
 
-Sortable columns:
+Сортируемые колонки:
 
-- **Term** - Sort by `term` field
-- **Created** - Sort by `createdAt` field
+- **Термин** - Сортировка по полю `term`
+- **Создано** - Сортировка по полю `createdAt`
 
-Click column headers to toggle sorting (asc → desc → none).
+Нажмите на заголовки колонок для переключения сортировки (asc → desc → none).
 
-### 3. Search
+### 3. Поиск
 
-- **Global search** - Search across all card fields
-- **Real-time** - Search updates as you type
-- **URL sync** - Search query is saved in URL
+- **Глобальный поиск** - Поиск по всем полям карточки
+- **В реальном времени** - Поиск обновляется при вводе
+- **Синхронизация URL** - Поисковый запрос сохраняется в URL
 
-### 4. Column Display
+### 4. Отображение колонок
 
-Columns shown:
+Показываемые колонки:
 
-- **Term** - Main content with sorting
-- **Part of Speech** - Badge with part of speech
-- **Difficulty** - Color-coded difficulty badge
-- **Transcription** - Phonetic transcription
-- **Type** - Global/Personal badge
-- **Created** - Creation date with sorting
-- **Actions** - Dropdown menu with actions
+- **Термин** - Основной контент с сортировкой
+- **Часть речи** - Бейдж с частью речи
+- **Сложность** - Цветной бейдж сложности
+- **Транскрипция** - Фонетическая транскрипция
+- **Тип** - Бейдж Глобальная/Личная
+- **Создано** - Дата создания с сортировкой
+- **Действия** - Выпадающее меню с действиями
 
-### 5. Actions
+### 5. Действия
 
-Each row has a dropdown menu with:
+Каждая строка имеет выпадающее меню с:
 
-- **Copy card ID** - Copy card ID to clipboard
-- **View details** - View card details (placeholder)
-- **Edit card** - Edit card (placeholder)
-- **Delete card** - Delete card (placeholder)
+- **Копировать ID карточки** - Копировать ID карточки в буфер обмена
+- **Просмотр деталей** - Просмотр деталей карточки (заглушка)
+- **Редактировать карточку** - Редактировать карточку (заглушка)
+- **Удалить карточку** - Удалить карточку (заглушка)
 
-## API Integration
+## Интеграция с API
 
-### Data Flow
+### Поток данных
 
-1. **URL parameters** are read using `nuqs`
-2. **Parameters** are passed to `useFindCards` hook
-3. **API call** is made with server-side pagination
-4. **Data** is displayed in the table
-5. **User interactions** update URL parameters
-6. **New API call** is triggered automatically
+1. **Параметры URL** читаются с помощью `nuqs`
+2. **Параметры** передаются в хук `useFindCards`
+3. **API вызов** выполняется с серверной пагинацией
+4. **Данные** отображаются в таблице
+5. **Взаимодействие пользователя** обновляет параметры URL
+6. **Новый API вызов** запускается автоматически
 
-### Required API Response
+### Требуемый формат ответа API
 
-The API must return data in this format:
+API должен возвращать данные в этом формате:
 
 ```typescript
 interface PaginatedResponse<Card> {
@@ -138,30 +138,30 @@ interface PaginatedResponse<Card> {
 }
 ```
 
-### API Parameters
+### Параметры API
 
-The table sends these parameters to the API:
+Таблица отправляет эти параметры в API:
 
 ```typescript
 interface CardParams {
-  page?: number // Current page (1-based)
-  limit?: number // Items per page
-  search?: string // Search query
-  sort?: CardSortField // Sort field
-  order?: SortOrder // Sort order ('asc' | 'desc')
+  page?: number // Текущая страница (начиная с 1)
+  limit?: number // Элементов на странице
+  search?: string // Поисковый запрос
+  sort?: CardSortField // Поле сортировки
+  order?: SortOrder // Порядок сортировки ('asc' | 'desc')
 }
 ```
 
-## Customization
+## Кастомизация
 
-### Adding New Columns
+### Добавление новых колонок
 
-1. **Define column** in `cardsTableColumns`:
+1. **Определите колонку** в `cardsTableColumns`:
 
 ```tsx
 {
   accessorKey: 'newField',
-  header: 'New Column',
+  header: 'Новая колонка',
   cell: ({ row }) => {
     const value = row.getValue('newField')
     return <div>{value}</div>
@@ -169,7 +169,7 @@ interface CardParams {
 }
 ```
 
-2. **Add sorting** if needed:
+2. **Добавьте сортировку** если нужно:
 
 ```tsx
 {
@@ -179,17 +179,17 @@ interface CardParams {
       variant="ghost"
       onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
     >
-      New Column
+      Новая колонка
       <ArrowUpDown className="ml-2 h-4 w-4" />
     </Button>
   ),
-  // ... cell definition
+  // ... определение ячейки
 }
 ```
 
-### Customizing Actions
+### Кастомизация действий
 
-Modify the actions dropdown in `cardsTableColumns`:
+Измените выпадающее меню действий в `cardsTableColumns`:
 
 ```tsx
 {
@@ -206,7 +206,7 @@ Modify the actions dropdown in `cardsTableColumns`:
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={() => handleCustomAction(card)}>
-            Custom Action
+            Кастомное действие
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -215,60 +215,60 @@ Modify the actions dropdown in `cardsTableColumns`:
 }
 ```
 
-### Styling
+### Стилизация
 
-The table uses Tailwind CSS classes and can be customized:
+Таблица использует классы Tailwind CSS и может быть кастомизирована:
 
 ```tsx
-// Custom table wrapper
+// Кастомная обертка таблицы
 <div className="w-full border rounded-lg">
   <CardsTable />
 </div>
 
-// Custom loading state
+// Кастомное состояние загрузки
 if (isLoading) {
   return <CustomLoadingComponent />
 }
 ```
 
-## Performance
+## Производительность
 
-### Optimizations
+### Оптимизации
 
-- **Server-side pagination** - Only loads current page data
-- **Debounced search** - Search is debounced to avoid excessive API calls
-- **URL state** - State is preserved in URL, no unnecessary re-renders
-- **Memoized columns** - Column definitions are memoized
+- **Серверная пагинация** - Загружает только данные текущей страницы
+- **Debounced поиск** - Поиск задерживается для избежания избыточных API вызовов
+- **URL состояние** - Состояние сохраняется в URL, нет ненужных перерендеров
+- **Мемоизированные колонки** - Определения колонок мемоизированы
 
-### Best Practices
+### Лучшие практики
 
-1. **Use appropriate page sizes** - Don't set too large page sizes
-2. **Implement search debouncing** - Avoid API calls on every keystroke
-3. **Cache API responses** - Use TanStack Query for caching
-4. **Optimize column rendering** - Use `useMemo` for complex cell renderers
+1. **Используйте подходящие размеры страниц** - Не устанавливайте слишком большие размеры страниц
+2. **Реализуйте debouncing поиска** - Избегайте API вызовов при каждом нажатии клавиши
+3. **Кэшируйте ответы API** - Используйте TanStack Query для кэширования
+4. **Оптимизируйте рендеринг колонок** - Используйте `useMemo` для сложных рендереров ячеек
 
-## Troubleshooting
+## Устранение неполадок
 
-### Common Issues
+### Частые проблемы
 
-1. **Table not updating** - Check if URL parameters are being updated
-2. **Sorting not working** - Verify API supports the sort field
-3. **Pagination issues** - Check if `pageCount` is set correctly
-4. **Search not working** - Verify API supports search parameter
+1. **Таблица не обновляется** - Проверьте, обновляются ли параметры URL
+2. **Сортировка не работает** - Убедитесь, что API поддерживает поле сортировки
+3. **Проблемы с пагинацией** - Проверьте, правильно ли установлен `pageCount`
+4. **Поиск не работает** - Убедитесь, что API поддерживает параметр поиска
 
-### Debug Mode
+### Режим отладки
 
-Add debug logging to see what parameters are being sent:
+Добавьте логирование отладки, чтобы увидеть, какие параметры отправляются:
 
 ```tsx
 useEffect(() => {
-  console.log('Table params:', params)
+  console.log('Параметры таблицы:', params)
 }, [params])
 ```
 
-## Examples
+## Примеры
 
-### Complete Page Example
+### Полный пример страницы
 
 ```tsx
 'use client'
@@ -282,14 +282,14 @@ export const CardsPage = () => {
     <div className='container py-8'>
       <div className='mb-6 flex items-center justify-between'>
         <div>
-          <h1 className='text-3xl font-bold'>Flashcards</h1>
+          <h1 className='text-3xl font-bold'>Флешкарты</h1>
           <p className='text-muted-foreground'>
-            Manage your flashcard collection
+            Управляйте своей коллекцией флешкарт
           </p>
         </div>
         <Button>
           <Plus className='mr-2 h-4 w-4' />
-          Add Card
+          Добавить карточку
         </Button>
       </div>
       <CardsTable />
@@ -298,7 +298,7 @@ export const CardsPage = () => {
 }
 ```
 
-### Custom Loading State
+### Кастомное состояние загрузки
 
 ```tsx
 import { CardsTable } from '@/features/card'
@@ -308,9 +308,9 @@ export const CardsPageWithCustomLoading = () => {
   return (
     <div className='container py-8'>
       <div className='mb-6'>
-        <h1 className='text-3xl font-bold'>Flashcards</h1>
+        <h1 className='text-3xl font-bold'>Флешкарты</h1>
         <p className='text-muted-foreground'>
-          Manage your flashcard collection
+          Управляйте своей коллекцией флешкарт
         </p>
       </div>
       <Suspense fallback={<CardsTableSkeleton />}>
@@ -329,9 +329,9 @@ const CardsTableSkeleton = () => (
 )
 ```
 
-## Related Documentation
+## Связанная документация
 
-- [TanStack Table Documentation](https://tanstack.com/table/latest)
+- [Документация TanStack Table](https://tanstack.com/table/latest)
 - [shadcn/ui Data Table](https://ui.shadcn.com/docs/components/data-table)
-- [nuqs Documentation](https://nuqs.47ng.com/)
-- [Card Entity Documentation](../entities/card/README.md)
+- [Документация nuqs](https://nuqs.47ng.com/)
+- [Документация сущности Card](../entities/card/README.md)

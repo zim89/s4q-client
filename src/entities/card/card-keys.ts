@@ -1,4 +1,4 @@
-import type { CardParams } from './card-types'
+import type { CardParams, CardSearchParams } from './card-types'
 
 export const cardKeys = {
   root: ['card'] as const,
@@ -9,4 +9,8 @@ export const cardKeys = {
 
   details: () => [...cardKeys.root, 'detail'] as const,
   detail: (id: string) => [...cardKeys.details(), id] as const,
+
+  searches: () => [...cardKeys.root, 'search'] as const,
+  search: (params: CardSearchParams) =>
+    [...cardKeys.searches(), params] as const,
 } as const

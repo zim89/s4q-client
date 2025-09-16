@@ -12,8 +12,8 @@ This document defines standards and conventions for writing code for the FindOUT
 
 ### 2. Localization
 
-- **All comments and JSDoc should be written in English**
-- **Use clear, descriptive English language**
+- **All comments and JSDoc should be written in Russian**
+- **Use clear, descriptive Russian language**
 
 ### 3. Type Safety
 
