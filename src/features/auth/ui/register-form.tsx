@@ -18,7 +18,7 @@ import {
 import { Input } from '@/shared/components/ui/input'
 import { cn } from '@/shared/utils'
 import { type RegisterFormData, registerSchema } from '../lib/schemas'
-import { useRegister } from '../model/hooks/use-register'
+import { useRegister } from '../model'
 import { SocialLoginButtons } from './social-login-buttons'
 
 type Props = {

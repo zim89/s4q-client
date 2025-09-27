@@ -18,7 +18,7 @@ import {
 import { Input } from '@/shared/components/ui/input'
 import { cn } from '@/shared/utils'
 import { type LoginFormData, loginSchema } from '../lib/schemas'
-import { useLogin } from '../model/hooks/use-login'
+import { useLogin } from '../model'
 import { SocialLoginButtons } from './social-login-buttons'
 
 type Props = {

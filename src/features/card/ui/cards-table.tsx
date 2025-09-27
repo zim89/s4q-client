@@ -21,7 +21,7 @@ import {
   TableRow,
 } from '@/shared/components/ui/table'
 import type { CardSortField, SortOrder } from '@/shared/constants'
-import { useFindCards } from '../model/hooks'
+import { useFindCards } from '../model'
 import { cardsTableColumns } from './cards-table-columns'
 import { CardsTablePagination } from './cards-table-pagination'
 

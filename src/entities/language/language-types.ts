@@ -1,5 +1,3 @@
-import type { PaginatedResponse } from '@/shared/types'
-
 // ==============================
 // REQUEST PARAMETERS
 // ==============================

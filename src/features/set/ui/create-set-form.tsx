@@ -2,9 +2,10 @@
 
 import { useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Trash2Icon } from 'lucide-react'
+import { ImageIcon, MicIcon, SettingsIcon, Trash2Icon } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { useLanguages } from '@/features/language'
+import { TextEditor } from '@/shared/components/editor/text-editor'
 import {
   Card,
   CardContent,
@@ -23,6 +24,11 @@ import {
 } from '@/shared/components/ui/form'
 import { Input } from '@/shared/components/ui/input'
 import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/shared/components/ui/popover'
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -30,45 +36,34 @@ import {
   SelectValue,
 } from '@/shared/components/ui/select'
 import { Textarea } from '@/shared/components/ui/textarea'
-import { languageLevels } from '@/shared/constants'
+import { languageLevels, partsOfSpeech, verbTypes } from '@/shared/constants'
+import { defaultNewCard, defaultSetForm } from '../lib/constants'
 import { type CreateSetFormData, createSetSchema } from '../lib/schema'
 
 export const CreateSetForm = () => {
+  const { languages } = useLanguages()
+
   const form = useForm<CreateSetFormData>({
     resolver: zodResolver(createSetSchema),
-    defaultValues: {
-      name: '',
-      description: '',
-      isBase: undefined,
-      isPublic: undefined,
-      level: undefined,
-      cards: [
-        { newCard: { term: '', translate: '', definition: '' } },
-        { newCard: { term: '', translate: '', definition: '' } },
-      ],
-    },
+    defaultValues: defaultSetForm,
   })
 
   const handleSubmit = (data: CreateSetFormData) => {
     console.log('🚸 Form data', data)
   }
 
-  const { languages } = useLanguages()
-
-  useEffect(() => {
-    console.log('🚸 Languages', languages)
-  }, [languages])
-
   const addCard = () => {
     const currentCards = form.getValues('cards')
+
     form.setValue('cards', [
       ...currentCards,
-      { newCard: { term: '', translate: '', definition: '' } },
+      { newCard: { ...defaultNewCard } },
     ])
   }
 
   const removeCard = (index: number) => {
     const currentCards = form.getValues('cards')
+
     if (currentCards.length > 2) {
       form.setValue(
         'cards',
@@ -76,6 +71,13 @@ export const CreateSetForm = () => {
       )
     }
   }
+
+  // Watch form changes
+  const formValues = form.watch()
+
+  useEffect(() => {
+    console.log('🚸 Form state changed:', formValues)
+  }, [formValues])
 
   return (
     <Form {...form}>
@@ -214,26 +216,192 @@ export const CreateSetForm = () => {
                 <CardTitle className='text-base font-medium'>
                   Card #{index + 1}
                 </CardTitle>
+                <div className='flex items-center gap-2'>
+                  <Popover>
+                    <PopoverTrigger>
+                      <SettingsIcon />
+                    </PopoverTrigger>
+                    <PopoverContent className='w-[300px]'>
+                      <div className='grid grid-cols-1 gap-4'>
+                        <div className='grid grid-cols-2 gap-4'>
+                          {/* IMAGE */}
+                          <div className='flex h-10 cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed text-sm'>
+                            <ImageIcon className='size-4 opacity-50' />
+                            <span>Image</span>
+                          </div>
+                          {/* AUDIO */}
+                          <div className='flex h-10 cursor-pointer items-center justify-center gap-2 rounded-md border border-dashed text-sm'>
+                            <MicIcon className='size-4 opacity-50' />
+                            <span>Audio</span>
+                          </div>
+                        </div>
 
-                <Button
-                  type='button'
-                  variant='ghost'
-                  size='sm'
-                  onClick={() => removeCard(index)}
-                  disabled={form.watch('cards').length <= 2}
-                  className='text-destructive hover:text-destructive'
-                >
-                  <Trash2Icon />
-                </Button>
+                        {/* LEVEL */}
+                        <FormField
+                          control={form.control}
+                          name={`cards.${index}.newCard.level`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Level</FormLabel>
+                              <Select
+                                onValueChange={field.onChange}
+                                value={field.value}
+                              >
+                                <FormControl>
+                                  <SelectTrigger className='w-full'>
+                                    <SelectValue placeholder='Select ...' />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  {Object.entries(languageLevels).map(
+                                    ([key, value]) => (
+                                      <SelectItem key={key} value={value}>
+                                        {value}
+                                      </SelectItem>
+                                    ),
+                                  )}
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+
+                        {/* PART OF SPEECH */}
+                        <FormField
+                          control={form.control}
+                          name={`cards.${index}.newCard.partOfSpeech`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Part of Speech</FormLabel>
+                              <Select
+                                onValueChange={field.onChange}
+                                value={field.value}
+                              >
+                                <FormControl>
+                                  <SelectTrigger className='w-full'>
+                                    <SelectValue placeholder='Select ...' />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  {Object.entries(partsOfSpeech).map(
+                                    ([key, value]) => (
+                                      <SelectItem key={key} value={value}>
+                                        {value}
+                                      </SelectItem>
+                                    ),
+                                  )}
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+
+                        {/* VERB TYPE */}
+                        {form.watch(`cards.${index}.newCard.partOfSpeech`) ===
+                          partsOfSpeech.verb && (
+                          <FormField
+                            control={form.control}
+                            name={`cards.${index}.newCard.verbType`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Verb Type</FormLabel>
+                                <Select
+                                  onValueChange={field.onChange}
+                                  value={field.value}
+                                >
+                                  <FormControl>
+                                    <SelectTrigger className='w-full'>
+                                      <SelectValue placeholder='Select verb type' />
+                                    </SelectTrigger>
+                                  </FormControl>
+                                  <SelectContent>
+                                    {Object.entries(verbTypes).map(
+                                      ([key, value]) => (
+                                        <SelectItem key={key} value={value}>
+                                          {value}
+                                        </SelectItem>
+                                      ),
+                                    )}
+                                  </SelectContent>
+                                </Select>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        )}
+
+                        {/* Verb-specific fields - only show if part of speech is verb */}
+                        {form.watch(`cards.${index}.newCard.partOfSpeech`) ===
+                          partsOfSpeech.verb &&
+                          form.watch(`cards.${index}.newCard.verbType`) ===
+                            verbTypes.irregular && (
+                            <>
+                              {/* PAST SIMPLE */}
+                              <FormField
+                                control={form.control}
+                                name={`cards.${index}.newCard.pastSimple`}
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Past Simple</FormLabel>
+                                    <FormControl>
+                                      <Input
+                                        placeholder='Enter past simple form'
+                                        {...field}
+                                      />
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+
+                              {/* PAST PARTICIPLE */}
+                              <FormField
+                                control={form.control}
+                                name={`cards.${index}.newCard.pastParticiple`}
+                                render={({ field }) => (
+                                  <FormItem>
+                                    <FormLabel>Past Participle</FormLabel>
+                                    <FormControl>
+                                      <Input
+                                        placeholder='Enter past participle form'
+                                        {...field}
+                                      />
+                                    </FormControl>
+                                    <FormMessage />
+                                  </FormItem>
+                                )}
+                              />
+                            </>
+                          )}
+                      </div>
+
+                      {/*  */}
+                    </PopoverContent>
+                  </Popover>
+                  <Button
+                    type='button'
+                    variant='ghost'
+                    size='sm'
+                    onClick={() => removeCard(index)}
+                    disabled={form.watch('cards').length <= 2}
+                    className='text-destructive hover:text-destructive'
+                  >
+                    <Trash2Icon />
+                  </Button>
+                </div>
               </CardHeader>
               <CardContent className='space-y-4'>
+                {/* Core Fields */}
                 <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
                   <FormField
                     control={form.control}
                     name={`cards.${index}.newCard.term`}
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Term</FormLabel>
+                        <FormLabel>Term *</FormLabel>
+
                         <FormControl>
                           <Input
                             placeholder='Enter term'
@@ -241,6 +409,38 @@ export const CreateSetForm = () => {
                             disabled={false}
                           />
                         </FormControl>
+
+                        <div className='flex h-9 items-center justify-end'>
+                          <FormField
+                            control={form.control}
+                            name={`cards.${index}.newCard.languageId`}
+                            render={({ field }) => (
+                              <FormItem>
+                                <Select
+                                  onValueChange={field.onChange}
+                                  value={field.value}
+                                >
+                                  <FormControl>
+                                    <SelectTrigger className='border-none shadow-none'>
+                                      <SelectValue placeholder='Choose language' />
+                                    </SelectTrigger>
+                                  </FormControl>
+                                  <SelectContent>
+                                    {languages?.map(language => (
+                                      <SelectItem
+                                        key={language.id}
+                                        value={language.id}
+                                      >
+                                        {language.name}
+                                      </SelectItem>
+                                    ))}
+                                  </SelectContent>
+                                </Select>
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+
                         <FormMessage />
                       </FormItem>
                     )}
@@ -259,6 +459,8 @@ export const CreateSetForm = () => {
                             disabled={false}
                           />
                         </FormControl>
+                        <div className='flex h-9 items-center justify-end'></div>
+
                         <FormMessage />
                       </FormItem>
                     )}
@@ -267,16 +469,53 @@ export const CreateSetForm = () => {
 
                 <FormField
                   control={form.control}
+                  name={`cards.${index}.newCard.transcription`}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Transcription</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder='Enter phonetic transcription'
+                          {...field}
+                          disabled={false}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
                   name={`cards.${index}.newCard.definition`}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Definition</FormLabel>
                       <FormControl>
-                        <Textarea
+                        <TextEditor
+                          content={field.value || ''}
+                          onChange={field.onChange}
                           placeholder='Enter definition'
-                          className='min-h-[80px]'
-                          {...field}
-                          disabled={false}
+                          className='min-h-[120px]'
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name={`cards.${index}.newCard.example`}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Example</FormLabel>
+                      <FormControl>
+                        <TextEditor
+                          content={field.value || ''}
+                          onChange={field.onChange}
+                          placeholder='Enter example usage'
+                          className='min-h-[120px]'
                         />
                       </FormControl>
                       <FormMessage />

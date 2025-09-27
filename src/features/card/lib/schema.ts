@@ -7,9 +7,10 @@ import {
   partsOfSpeech,
   verbTypes,
 } from '@/shared/constants'
+import { type SchemaKeys, extractSchemaKeys } from '@/shared/utils'
 
-// Schema for new card creation
-export const newCardSchema = z.object({
+// Schema for card creation
+export const createCardSchema = z.object({
   // Core fields
   term: z
     .string()
@@ -101,35 +102,10 @@ export const newCardSchema = z.object({
     .optional(),
 })
 
-// Schema for set card (either existing or new)
-export const setCardSchema = z
-  .object({
-    existingCardId: z.string().optional(),
-    newCard: newCardSchema.optional(),
-  })
-  .refine(data => data.existingCardId || data.newCard, {
-    message: 'Either existing card ID or new card data must be provided',
-    path: ['existingCardId'],
-  })
+export type CreateCardFormData = z.infer<typeof createCardSchema>
 
-export const createSetSchema = z.object({
-  name: z
-    .string()
-    .min(1, 'Name is required')
-    .min(2, 'Name must be at least 2 characters')
-    .max(100, 'Name must not exceed 100 characters'),
-  description: z
-    .string()
-    .min(1, 'Description is required')
-    .min(10, 'Description must be at least 10 characters')
-    .max(500, 'Description must not exceed 500 characters')
-    .optional(),
-  isBase: z.boolean().optional(),
-  isPublic: z.boolean().optional(),
-  level: z.enum(languageLevels).optional(),
-  cards: z.array(setCardSchema).min(2, 'At least 2 cards are required'),
-})
+// Константы полей формы, извлеченные из схемы
+export const cardFormFields = extractSchemaKeys(createCardSchema)
 
-export type NewCardFormData = z.infer<typeof newCardSchema>
-export type SetCardFormData = z.infer<typeof setCardSchema>
-export type CreateSetFormData = z.infer<typeof createSetSchema>
+// Тип для ключей полей формы
+export type CardFormField = SchemaKeys<typeof createCardSchema.shape>

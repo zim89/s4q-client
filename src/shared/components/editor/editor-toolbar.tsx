@@ -64,7 +64,7 @@ export const EditorToolbar = ({ editor }: EditorToolbarProps) => {
         <button
           onClick={onClick}
           disabled={disabled}
-          className={`rounded p-2 hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-50 ${
+          className={`rounded p-1 hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-50 ${
             isActive ? 'bg-gray-300' : ''
           }`}
           type='button'

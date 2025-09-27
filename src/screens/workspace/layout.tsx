@@ -54,7 +54,7 @@ export const WorkspaceLayout = ({
           </header>
         </div>
 
-        <div className='max-w-4xl'>{children}</div>
+        <div className='max-w-4xl pb-20'>{children}</div>
       </SidebarInset>
     </SidebarProvider>
   )
